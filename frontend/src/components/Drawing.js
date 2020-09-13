@@ -9,11 +9,12 @@ import { Container, Button } from 'semantic-ui-react'
 class Drawing extends React.Component {
 
   state = {
+    drawingURL: null,
     isDrawing: false,
     eraser: false,
     size: 5,
     globalCompositeOperation: 'source-over',
-    cursor: '',
+    cursor: null,
     displayColorPicker: false,
     color: '#000000',
     brushSlider: 5
@@ -30,8 +31,10 @@ class Drawing extends React.Component {
 
 
   handleSave = () => {
-
-    console.log('save')
+    const stage = this.image.getStage()
+    const dataURL = stage.toDataURL()
+    this.setState({ drawingURL: dataURL })
+    console.log(this.state.drawingURL)
   }
 
   //? MOUSE EVENT HANDERS
@@ -80,6 +83,8 @@ class Drawing extends React.Component {
       this.setState({ size: e.target.value })
     }
 
+
+    //RANDOM SIZE/COLOR ON WHEEL SPIN
     handleWheel = () => {
       console.log('wheel spinning')
       const size = Math.floor(Math.random() * 50)
@@ -113,8 +118,7 @@ class Drawing extends React.Component {
       console.log('paint')
     }
 
-    //? COLOR PICKER FUNCTIONS
-
+    //COLOR PICKER FUNCTIONS
     handleColorClick = () => {
       this.setState({ displayColorPicker: !this.state.displayColorPicker, cursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=125360), auto', globalCompositeOperation: 'source-over' })
     }
@@ -131,7 +135,6 @@ class Drawing extends React.Component {
 
     render() {
       const { canvas } = this.state
-
       const styles = reactCSS({
         'default': {
           color: {
@@ -159,7 +162,6 @@ class Drawing extends React.Component {
           }
         }
       })
-
       return (
         <Container text>
           <div className="drawing-wrapper">
