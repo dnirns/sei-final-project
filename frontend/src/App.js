@@ -5,6 +5,8 @@ import Home from './components/Home'
 import Nav from './components/Nav'
 import Drawing from './components/Drawing'
 
+
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -13,6 +15,7 @@ const App = () => {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path ='/drawing' component={Drawing} />
+          
         </Switch>
       </Container>
     </BrowserRouter>
