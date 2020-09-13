@@ -14,7 +14,7 @@ class Drawing extends React.Component {
     eraser: false,
     size: 5,
     globalCompositeOperation: 'source-over',
-    cursor: null,
+    cursor: '',
     displayColorPicker: false,
     color: '#000000',
     brushSlider: 5

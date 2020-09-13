@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Drawing(models.Model):
     title = models.CharField(max_length=50)
-    json_string = models.CharField(max_length=1000)
+    url = models.TextField()
 
 #NEW:
     owner = models.ForeignKey(
