@@ -16,6 +16,11 @@ const Nav = () => {
             Draw
           </Menu.Item>
         </Link>
+        <Link to='/request'>
+          <Menu.Item as='a'>
+            Gallery
+          </Menu.Item>
+        </Link>
         <Menu.Menu position='right'>
           <Dropdown item simple text='My Account'>
             <Dropdown.Menu >
