@@ -16,7 +16,7 @@ const Nav = () => {
             Draw
           </Menu.Item>
         </Link>
-        <Link to='/request'>
+        <Link to='/gallery'>
           <Menu.Item as='a'>
             Gallery
           </Menu.Item>
@@ -24,10 +24,10 @@ const Nav = () => {
         <Menu.Menu position='right'>
           <Dropdown item simple text='My Account'>
             <Dropdown.Menu >
-              <Link to='login'>
+              <Link to='/login'>
                 <Dropdown.Item  as='a'>Login</Dropdown.Item>
               </Link>
-              <Link to='register'>
+              <Link to='/register'>
                 <Dropdown.Item  as='a'>Register</Dropdown.Item>
               </Link>
             </Dropdown.Menu>

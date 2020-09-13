@@ -4,7 +4,10 @@ import { Container } from 'semantic-ui-react'
 import Home from './components/Home'
 import Nav from './components/Nav'
 import Drawing from './components/Drawing'
-import TestRequest from './testRequest'
+import Gallery from './components/Gallery'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
+
 
 
 
@@ -16,7 +19,9 @@ const App = () => {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path ='/drawing' component={Drawing} />
-          <Route path ='/request' component={TestRequest} />
+          <Route path ='/gallery' component={Gallery} />
+          <Route path='/login' component={Login} />
+          <Route path='/register' component={Register} />
         </Switch>
       </Container>
     </BrowserRouter>
