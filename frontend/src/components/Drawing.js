@@ -69,7 +69,7 @@ class Drawing extends React.Component {
       context.strokeStyle = this.state.color
       context.lineJoin = 'round'
       context.lineWidth = this.state.brushSlider
-      context.globalCompositeOperation = 'this.state.globalCompositeOperation'
+      context.globalCompositeOperation = this.state.globalCompositeOperation
       //* DRAW
       context.lineTo(localPos.x, localPos.y)
       context.closePath()
