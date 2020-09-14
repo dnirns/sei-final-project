@@ -14,8 +14,8 @@ export const loginSuccess = (message) => {
   })
 }
 
-export const loginError = () => {
-  toast.error('Incorrect Login Details', {
+export const loginError = (message) => {
+  toast.error(message, {
     position: 'top-center',
     autoClose: 5000,
     hideProgressBar: true,
