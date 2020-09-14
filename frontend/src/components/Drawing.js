@@ -5,6 +5,7 @@ import Slider from 'react-input-slider'
 import reactCSS from 'reactcss'
 import { Container, Button } from 'semantic-ui-react'
 import { saveDrawing } from '../lib/api'
+import { ToastContainer } from 'react-toastify'
 
 
 class Drawing extends React.Component {
@@ -237,6 +238,7 @@ class Drawing extends React.Component {
               <Button icon size='big' onClick={this.handleSaveImg}>Save to Server</Button>
             </Container>
           </div>
+          <ToastContainer style={{ textAlign: 'center' }}/>
         </Container>
       )
     }
