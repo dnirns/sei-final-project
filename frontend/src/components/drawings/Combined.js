@@ -22,7 +22,7 @@ class testRequest extends React.Component {
   getHead = () => {
     const headsArray = []
     this.state.data.map((drawing) => {
-      if (drawing.title === 'Head') {
+      if (drawing.category === 'Head') {
         return headsArray.push(drawing)
       }
     })
@@ -33,7 +33,7 @@ class testRequest extends React.Component {
   getBody = () => {
     const bodyArray = []
     this.state.data.map((body) => {
-      if (body.title === 'Body') {
+      if (body.category === 'Body') {
         return bodyArray.push(body)
       }
     })
@@ -44,7 +44,7 @@ class testRequest extends React.Component {
   getLegs = () => {
     const feetArray = []
     this.state.data.map((foot) => {
-      if (foot.title === 'Feet') {
+      if (foot.category === 'Feet') {
         return feetArray.push(foot)
       }
     })
@@ -52,9 +52,6 @@ class testRequest extends React.Component {
     this.setState({ feet: feetArray[randomFeet] })
     console.log(this.state.feet)
   }
-
-
-
 
 
   render() {

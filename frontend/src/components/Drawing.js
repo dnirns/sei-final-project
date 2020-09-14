@@ -3,11 +3,10 @@ import { Image, Stage, Layer } from 'react-konva'
 import { SketchPicker } from 'react-color'
 import Slider from 'react-input-slider'
 import reactCSS from 'reactcss'
-import { Container, Button, Form, Input, Label, Segment } from 'semantic-ui-react'
+import { Container, Button, Form, Input, Label } from 'semantic-ui-react'
 import { saveDrawing } from '../lib/api'
 import { ToastContainer } from 'react-toastify'
 import { drawingNotAuthorized } from '../lib/notifications'
-import Select from 'react-select'
 
 
 class Drawing extends React.Component {
@@ -21,10 +20,11 @@ class Drawing extends React.Component {
     cursor: '',
     displayColorPicker: false,
     color: '#000000',
-    brushSlider: 5,
+    brushSlider: 8,
     data: {
       title: '',
-      url: ''
+      url: '',
+      category: ''
     }
 
   }
@@ -87,15 +87,15 @@ class Drawing extends React.Component {
     }
 
     //RANDOM SIZE/COLOR ON WHEEL SPIN
-    handleWheel = () => {
-      console.log('wheel spinning')
-      const size = Math.floor(Math.random() * 50)
-      const r = Math.floor(Math.random() * 255)
-      const g = Math.floor(Math.random() * 255)
-      const b = Math.floor(Math.random() * 255)
-      const randomColor = `rgb(${r},${g},${b})`
-      this.setState({ color: randomColor, brushSlider: size })
-    }
+    // handleWheel = () => {
+    //   console.log('wheel spinning')
+    //   const size = Math.floor(Math.random() * 50)
+    //   const r = Math.floor(Math.random() * 255)
+    //   const g = Math.floor(Math.random() * 255)
+    //   const b = Math.floor(Math.random() * 255)
+    //   const randomColor = `rgb(${r},${g},${b})`
+    //   this.setState({ color: randomColor, brushSlider: size })
+    // }
 
     handleButtonSelection = (e) => {
       const paint = 'source-over'
@@ -116,10 +116,6 @@ class Drawing extends React.Component {
       }
     }
 
-    handlePaint =  () => {
-      console.log('paint')
-    }
-
     //COLOR PICKER FUNCTIONS
     handleColorClick = () => {
       this.setState({ displayColorPicker: !this.state.displayColorPicker, cursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=125360), auto', globalCompositeOperation: 'source-over' })
@@ -138,23 +134,21 @@ class Drawing extends React.Component {
     handleTitleChange = e => {
       const data = { ...this.state.data, title: e.target.value }
       this.setState({ data })
-      console.log(this.state.data.title)
     }
 
     handleCatChange = e => {
-      console.log('radio')
-      console.log(e.target.value)
-      const data = ({ ...this.state.data, title: e.target.value })
+      const data = ({ ...this.state.data, category: e.target.value })
       this.setState({ data })
+      console.log(this.state.data.category)
     }
 
     handleSaveImg = async (e) => {
       const stage = this.image.getStage()
       const dataURL = stage.toDataURL()
-      const data = { ...this.state.data  }
+      const data = { ...this.state.data }
       this.setState({ data })
       try {
-        await saveDrawing({ data, url: dataURL, title: this.state.data.title })
+        await saveDrawing({ data, url: dataURL, category: this.state.data.category, title: this.state.data.title })
         this.props.history.push('/gallery')
       } catch (err) {
         drawingNotAuthorized('Please log in to save your drawing')
@@ -162,9 +156,7 @@ class Drawing extends React.Component {
     }
 
     render() {
-      const {
-        canvas
-      } = this.state
+      const { canvas, data } = this.state
 
 
       const styles = reactCSS({
@@ -266,33 +258,33 @@ class Drawing extends React.Component {
                   placeholder='Title'
                   type='text'
                   name='title'
-                  value={this.state.data.title}
+                  value={data.title}
                   onChange={this.handleTitleChange}
                   width={8}
                 />
               </Form.Field>
 
               <div className='radio-buttons'>
-                <h4>Corpse part: <b>{this.state.data.title}</b></h4>
+                <h4>Corpse part: <b>{data.category}</b></h4>
                 <Label>Head</Label>
                 <Input
                   type='radio'
                   value='Head'
-                  checked={this.state.data.title === 'Head'}
+                  checked={data.category === 'Head'}
                   onChange={this.handleCatChange}
                 />
                 <Label>Body</Label>
                 <Input
                   type='radio'
                   value='Body'
-                  checked={this.state.data.title === 'Body'}
+                  checked={data.category === 'Body'}
                   onChange={this.handleCatChange}
                 />
                 <Label>Feet</Label>
                 <Input
                   type='radio'
                   value='Feet'
-                  checked={this.state.data.title === 'Feet'}
+                  checked={data.category === 'Feet'}
                   onChange={this.handleCatChange}
                 />
               </div>

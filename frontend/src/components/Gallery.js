@@ -30,7 +30,8 @@ class testRequest extends React.Component {
             return <Grid.Column key={drawing.id} className="gallery-item" src={drawing.url}>
               <Image src={drawing.url}/>
               <h3>{drawing.title}</h3>
-              <p>{drawing.owner.username}</p>
+              <h5>{drawing.category}</h5>
+              <p>By {drawing.owner.username}</p>
             </Grid.Column>
           })
           }
