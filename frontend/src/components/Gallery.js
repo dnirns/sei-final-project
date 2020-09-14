@@ -25,9 +25,6 @@ class testRequest extends React.Component {
   render() {
     return (
       <>
-
-        <h1>GALLERY OF DRAWINGS</h1>
-
         <Grid container columns={3}>
           {this.state.data.map((drawing) => {
             return <Grid.Column key={drawing.id} className="gallery-item" src={drawing.url}>
@@ -38,9 +35,6 @@ class testRequest extends React.Component {
           })
           }
         </Grid>
-
-
-
       </>
     )
   }

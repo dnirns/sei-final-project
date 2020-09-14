@@ -4,6 +4,7 @@ import { SketchPicker } from 'react-color'
 import Slider from 'react-input-slider'
 import reactCSS from 'reactcss'
 import { Container, Button } from 'semantic-ui-react'
+import { saveDrawing } from '../lib/api'
 
 
 class Drawing extends React.Component {
@@ -17,9 +18,12 @@ class Drawing extends React.Component {
     cursor: '',
     displayColorPicker: false,
     color: '#000000',
-    brushSlider: 5
+    brushSlider: 5,
+    data: {
+      title: '',
+      url: ''
+    }
   }
-
 
   componentDidMount() {
     const canvas = document.createElement('canvas')
@@ -30,13 +34,6 @@ class Drawing extends React.Component {
   }
 
 
-  handleSave = () => {
-    const stage = this.image.getStage()
-    const dataURL = stage.toDataURL()
-    this.setState({ drawingURL: dataURL })
-    console.log(this.state.drawingURL)
-  }
-
   //? MOUSE EVENT HANDERS
   handleMouseDown = () => {
     this.setState({ isDrawing: true })
@@ -44,9 +41,11 @@ class Drawing extends React.Component {
     this.lastPointerPosition = stage.getPointerPosition()
   }
 
+
   handleMouseUp = () => {
     this.setState({ isDrawing: false })
   }
+
 
   handleMouseMove = () => {
     const { context, isDrawing } = this.state
@@ -82,7 +81,6 @@ class Drawing extends React.Component {
     changeSize = (e) => {
       this.setState({ size: e.target.value })
     }
-
 
     //RANDOM SIZE/COLOR ON WHEEL SPIN
     handleWheel = () => {
@@ -132,6 +130,18 @@ class Drawing extends React.Component {
       this.setState({ background: color.hex })
     }
 
+    handleSaveImg = async () => {
+      const stage = this.image.getStage()
+      const dataURL = stage.toDataURL()
+      const data = { ...this.state.data  }
+      this.setState({ data })
+      try {
+        await saveDrawing({ data, url: dataURL, title: 'test' })
+        this.props.history.push('/gallery')
+      } catch (err) {
+        console.log(err)
+      }
+    }
 
     render() {
       const { canvas } = this.state
@@ -224,6 +234,7 @@ class Drawing extends React.Component {
               <Button icon size='big' value="eraser" onClick={this.handleButtonSelection}>Eraser</Button>
               <Button icon size='big' value="paintBrush" onClick={this.handleButtonSelection}>Paint</Button>
               <Button icon size='big' onClick={this.handleSave}>Save</Button>
+              <Button icon size='big' onClick={this.handleSaveImg}>Save to Server</Button>
             </Container>
           </div>
         </Container>

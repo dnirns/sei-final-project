@@ -22,6 +22,7 @@ class DrawingListView(APIView):
 
 # NEW !!!
     def post(self, request):
+            print('posting')
             request.data['owner'] = request.user.id
             new_drawing = DrawingSerializer(data=request.data)
             if new_drawing.is_valid():

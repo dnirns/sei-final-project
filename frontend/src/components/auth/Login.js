@@ -1,5 +1,6 @@
 import React from 'react'
 import { login } from '../../lib/api'
+import { setToken } from '../../lib/auth'
 import { Button, Form } from 'semantic-ui-react'
 
 class Login extends React.Component {
@@ -19,15 +20,15 @@ class Login extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault()
-
     try {
-      await login(this.state.data)
+      const res = await login(this.state.data)
+      setToken(res.data.token)
       this.props.history.push('/drawing')
+      alert('welcome')
     } catch (err) {
       console.log(err)
     }
   }
-
 
   render() {
     const { data } = this.state
