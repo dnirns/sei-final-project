@@ -19,8 +19,6 @@ class testRequest extends React.Component {
 
   }
 
-
-
   getHead = () => {
     const headsArray = []
     this.state.data.map((drawing) => {
@@ -69,7 +67,20 @@ class testRequest extends React.Component {
 
         <button onClick={this.getBody}>Get Bodies</button>
         <button onClick={this.getLegs}>Get Legs</button>
+
+
         <Container>
+          <div>
+            <Image src={this.state.head.url} size='medium'/>
+          </div>
+          <div>
+            <Image src={this.state.body.url} size='medium'/>
+          </div>
+          <div>
+            <Image src={this.state.feet.url} size='medium'/>
+          </div>
+        </Container>
+        {/* <Container>
           {this.state.data.map((drawing) => {
             if (drawing.title === 'Body') {
               return <div key={drawing.id} className="gallery-item" src={drawing.url}>
@@ -79,7 +90,7 @@ class testRequest extends React.Component {
 
           })
           }
-        </Container>
+        </Container> */}
 
       </>
     )
