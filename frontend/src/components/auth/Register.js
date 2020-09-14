@@ -15,9 +15,7 @@ class Register extends React.Component {
       password: '',
       password_confirmation: ''
     },
-    errors: {
-
-    }
+    errors: {}
   }
 
   handleChange = e => {

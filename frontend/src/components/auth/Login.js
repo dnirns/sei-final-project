@@ -11,13 +11,16 @@ class Login extends React.Component {
     data: {
       email: '',
       password: ''
+    },
+    errors: {
+
     }
   }
 
   handleChange = e => {
     const data = { ...this.state.data, [e.target.name]: e.target.value }
-    this.setState({ data })
-    console.log(this.state.data)
+    const errors = { ...this.state.errors, [e.target.name]: '' }
+    this.setState({ data, errors })
   }
 
   handleSubmit = async e => {
@@ -28,21 +31,22 @@ class Login extends React.Component {
       this.props.history.push('/drawing')
       loginSuccess(res.data.message)
     } catch (err) {
-      loginError()
-      console.log(err)
+
+      this.setState({ errors: err.response.data })
+      loginError(`${this.state.errors.message}, try again.`)
     }
   }
 
   render() {
-    const { data } = this.state
+    const { data, errors } = this.state
     return (
       <>
         <Form>
           <h1>Login</h1>
           <Form.Field>
             <label>Email</label>
-            <input
-              placeholder='Email'
+            <Form.Input
+              error={!errors.message ? false : errors.message}
               name='email'
               value={data.email}
               onChange={this.handleChange}
@@ -50,7 +54,8 @@ class Login extends React.Component {
           </Form.Field>
           <Form.Field>
             <label label='password'>Password</label>
-            <input
+            <Form.Input
+              error={!errors.message ? false : errors.message}
               placeholder='Password'
               name='password'
               type='password'
