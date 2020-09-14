@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { login } from '../../lib/api'
 import { setToken } from '../../lib/auth'
 import { Button, Form } from 'semantic-ui-react'
@@ -64,8 +65,10 @@ class Login extends React.Component {
             />
           </Form.Field>
           <Button type='submit' onClick={this.handleSubmit}>Submit</Button>
-          <p>Not registered? <a href="/register">Create an account</a></p>
-          <button onClick={loginSuccess}>TOAST</button>
+          <p>Not registered?
+            <Link to='/register'> Create an account</Link>
+          </p>
+
         </Form>
         <ToastContainer style={{ textAlign: 'center' }}/>
       </>

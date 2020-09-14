@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { register } from '../../lib/api'
 import { } from '../../lib/auth'
 import { Container, Button, Form } from 'semantic-ui-react'
@@ -80,10 +81,11 @@ class Register extends React.Component {
             />
           </Form.Field>
           <Form.Field>
-            <label label='password'>Password Confirmation:</label>
+            <label label='password'>Password confirmation:</label>
             <Form.Input
               error={!errors.password_confirmation ? false :
                 errors.password_confirmation}
+              placeholder='Password confirmation'
               name='password_confirmation'
               type='password'
               value={data.passwordconfirmation}
@@ -91,8 +93,11 @@ class Register extends React.Component {
             />
           </Form.Field>
           <Button type='submit' onClick={this.handleSubmit}>Submit</Button>
-          <p>Not registered? <a href="/register">Create an account</a></p>
+          <p>Already registered?
+            <Link to='/login'> Login.</Link>
+          </p>
         </Form>
+
         <ToastContainer style={{ textAlign: 'center' }}/>
       </Container>
     )

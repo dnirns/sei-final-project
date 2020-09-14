@@ -3,9 +3,10 @@ import { Image, Stage, Layer } from 'react-konva'
 import { SketchPicker } from 'react-color'
 import Slider from 'react-input-slider'
 import reactCSS from 'reactcss'
-import { Container, Button } from 'semantic-ui-react'
+import { Container, Button, Form } from 'semantic-ui-react'
 import { saveDrawing } from '../lib/api'
 import { ToastContainer } from 'react-toastify'
+import { drawingNotAuthorized } from '../lib/notifications'
 
 
 class Drawing extends React.Component {
@@ -131,16 +132,23 @@ class Drawing extends React.Component {
       this.setState({ background: color.hex })
     }
 
-    handleSaveImg = async () => {
+
+    handleTitleChange = e => {
+      const data = { ...this.state.data, title: e.target.value }
+      this.setState({ data })
+      console.log(this.state.data.title)
+    }
+
+    handleSaveImg = async (e) => {
       const stage = this.image.getStage()
       const dataURL = stage.toDataURL()
       const data = { ...this.state.data  }
       this.setState({ data })
       try {
-        await saveDrawing({ data, url: dataURL, title: 'test' })
+        await saveDrawing({ data, url: dataURL, title: this.state.data.title })
         this.props.history.push('/gallery')
       } catch (err) {
-        console.log(err)
+        drawingNotAuthorized('Please log in to save your drawing')
       }
     }
 
@@ -232,10 +240,22 @@ class Drawing extends React.Component {
                   }}
                 />
               </div>
-              <Button icon size='big' value="eraser" onClick={this.handleButtonSelection}>Eraser</Button>
-              <Button icon size='big' value="paintBrush" onClick={this.handleButtonSelection}>Paint</Button>
-              <Button icon size='big' onClick={this.handleSave}>Save</Button>
-              <Button icon size='big' onClick={this.handleSaveImg}>Save to Server</Button>
+              <Button value="eraser" onClick={this.handleButtonSelection}>Eraser</Button>
+              <Button value="paintBrush" onClick={this.handleButtonSelection}>Paint</Button>
+
+              <Form>
+                <Form.Field>
+                  <label>Title</label>
+                  <Form.Input
+                    placeholder='Title'
+                    type='text'
+                    name='title'
+                    value={this.state.data.title}
+                    onChange={this.handleTitleChange}
+                  />
+                </Form.Field>
+                <Button type='submit' onClick={this.handleSaveImg}>Save</Button>
+              </Form>
             </Container>
           </div>
           <ToastContainer style={{ textAlign: 'center' }}/>
