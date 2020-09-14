@@ -1,5 +1,5 @@
 import React from 'react'
-import { Segment, Image, Container } from 'semantic-ui-react'
+import { Segment, Image, Container, Grid } from 'semantic-ui-react'
 
 
 
@@ -9,14 +9,19 @@ class testRequest extends React.Component {
     data: [],
     head: {},
     body: {},
-    feet: {}
+    feet: {},
+    headUser: '',
+    bodyUser: '',
+    feetUser: ''
   }
 
   async componentDidMount() {
     const res = await fetch('/api/drawings')
     const data = await res.json()
     this.setState({ data: data })
-
+    this.getHead()
+    this.getBody()
+    this.getLegs()
   }
 
   getHead = () => {
@@ -27,8 +32,9 @@ class testRequest extends React.Component {
       }
     })
     const randomHead = Math.floor(Math.random() * headsArray.length)
-    this.setState({ head: headsArray[randomHead] })
-    console.log(this.state.head)
+
+    this.setState({ head: headsArray[randomHead]})
+    this.setState({ headUser: this.state.head.owner.username })
   }
   getBody = () => {
     const bodyArray = []
@@ -39,7 +45,7 @@ class testRequest extends React.Component {
     })
     const randomBody = Math.floor(Math.random() * bodyArray.length)
     this.setState({ body: bodyArray[randomBody] })
-    console.log(this.state.body)
+    this.setState({ bodyUser: this.state.body.owner.username })
   }
   getLegs = () => {
     const feetArray = []
@@ -50,45 +56,30 @@ class testRequest extends React.Component {
     })
     const randomFeet = Math.floor(Math.random() * feetArray.length)
     this.setState({ feet: feetArray[randomFeet] })
-    console.log(this.state.feet)
+    this.setState({ feetUser: this.state.feet.owner.username })
   }
 
 
   render() {
     return (
       <>
-        <Segment basic>
-          <h2>Exquisite Corpse</h2>
-        </Segment>
-        <button onClick={this.getHead}>Get Heads</button>
-
-        <button onClick={this.getBody}>Get Bodies</button>
-        <button onClick={this.getLegs}>Get Legs</button>
-
-
-        <Container>
+        <Container textAlign='center'>
+          <Segment basic>
+            <h2>Your Exquisite Corpse</h2>
+          </Segment>
           <div>
-            <Image src={this.state.head.url} size='medium'/>
+            <Image src={this.state.head.url} size='medium' centered/>
           </div>
           <div>
-            <Image src={this.state.body.url} size='medium'/>
+            <Image src={this.state.body.url} size='medium' centered/>
           </div>
           <div>
-            <Image src={this.state.feet.url} size='medium'/>
+            <Image src={this.state.feet.url} size='medium' centered/>
           </div>
         </Container>
-        {/* <Container>
-          {this.state.data.map((drawing) => {
-            if (drawing.title === 'Body') {
-              return <div key={drawing.id} className="gallery-item" src={drawing.url}>
-                <Image src={drawing.url}/>
-              </div>
-            }
-
-          })
-          }
-        </Container> */}
-
+        <Segment basic textAlign='center'>
+          <p>Head by {this.state.headUser}, body by {this.state.bodyUser}, and feet by {this.state.feetUser}</p>
+        </Segment>
       </>
     )
   }

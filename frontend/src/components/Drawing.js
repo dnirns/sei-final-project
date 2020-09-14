@@ -142,7 +142,7 @@ class Drawing extends React.Component {
       console.log(this.state.data.category)
     }
 
-    handleSaveImg = async (e) => {
+    handleSaveImg = async () => {
       const stage = this.image.getStage()
       const dataURL = stage.toDataURL()
       const data = { ...this.state.data }

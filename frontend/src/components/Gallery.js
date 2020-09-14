@@ -25,7 +25,7 @@ class testRequest extends React.Component {
   render() {
     return (
       <>
-        <Grid container columns={3}>
+        <Grid container relaxed columns={3}>
           {this.state.data.map((drawing) => {
             return <Grid.Column key={drawing.id} className="gallery-item" src={drawing.url}>
               <Image src={drawing.url}/>

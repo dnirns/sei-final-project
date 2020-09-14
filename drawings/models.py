@@ -2,8 +2,9 @@ from django.db import models
 
 # Create your models here.
 class Drawing(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50, unique=True)
     url = models.TextField()
+    category = models.CharField(max_length=10)
 
 #NEW:
     owner = models.ForeignKey(

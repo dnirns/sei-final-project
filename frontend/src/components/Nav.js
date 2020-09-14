@@ -23,9 +23,9 @@ const Nav = () => {
         </Link>
         <Menu.Menu position='right'>
           <Dropdown item simple text='My Account'>
-            <Dropdown.Menu >
+            <Dropdown.Menu>
               <Link to='/login'>
-                <Dropdown.Item  as='a'>Login</Dropdown.Item>
+                <Dropdown.Item inverted as='a'>Login</Dropdown.Item>
               </Link>
               <Link to='/register'>
                 <Dropdown.Item  as='a'>Register</Dropdown.Item>
