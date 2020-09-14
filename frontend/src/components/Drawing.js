@@ -3,10 +3,11 @@ import { Image, Stage, Layer } from 'react-konva'
 import { SketchPicker } from 'react-color'
 import Slider from 'react-input-slider'
 import reactCSS from 'reactcss'
-import { Container, Button, Form } from 'semantic-ui-react'
+import { Container, Button, Form, Input, Label, Segment } from 'semantic-ui-react'
 import { saveDrawing } from '../lib/api'
 import { ToastContainer } from 'react-toastify'
 import { drawingNotAuthorized } from '../lib/notifications'
+import Select from 'react-select'
 
 
 class Drawing extends React.Component {
@@ -25,6 +26,7 @@ class Drawing extends React.Component {
       title: '',
       url: ''
     }
+
   }
 
   componentDidMount() {
@@ -139,6 +141,13 @@ class Drawing extends React.Component {
       console.log(this.state.data.title)
     }
 
+    handleCatChange = e => {
+      console.log('radio')
+      console.log(e.target.value)
+      const data = ({ ...this.state.data, title: e.target.value })
+      this.setState({ data })
+    }
+
     handleSaveImg = async (e) => {
       const stage = this.image.getStage()
       const dataURL = stage.toDataURL()
@@ -153,7 +162,11 @@ class Drawing extends React.Component {
     }
 
     render() {
-      const { canvas } = this.state
+      const {
+        canvas
+      } = this.state
+
+
       const styles = reactCSS({
         'default': {
           color: {
@@ -204,60 +217,90 @@ class Drawing extends React.Component {
                 </Layer>
               </Stage>
             </div>
-            <Container basic>
-              <div className='color-swatch'>
-                <div style={ styles.swatch } onClick={ this.handleColorClick }>
-                  <div style={ styles.color } />
-                </div>
-                {this.state.displayColorPicker ? <div style={ styles.popover }>
-                  <div
-                    style={ styles.cover }
-                    onClick={ this.handleColorClose }
-                  />
-                  <SketchPicker
-                    color={ this.state.color }
-                    onChange={ this.handleColorChange }
-                  />
-                </div> : null }
+          </div>
+          <Container basic>
+            <div className='color-swatch'>
+              <div style={ styles.swatch } onClick={ this.handleColorClick }>
+                <div style={ styles.color } />
               </div>
-              <div className={''}>
-                <Slider
-                  axis="x"
-                  xstep={1}
-                  xmin={5}
-                  xmax={35}
-                  x={this.state.brushSlider}
-                  onChange={({ x }) => this.setState({ brushSlider: parseInt(x.toFixed(100)) })}
-                  styles={{
-                    active: {
-                      backgroundColor: this.state.color
-                    },
-                    thumb: {
-                      width: 15,
-                      height: 15,
-                      opacity: 0.8
-                    }
-                  }}
+              {this.state.displayColorPicker ? <div style={ styles.popover }>
+                <div
+                  style={ styles.cover }
+                  onClick={ this.handleColorClose }
+                />
+                <SketchPicker
+                  color={ this.state.color }
+                  onChange={ this.handleColorChange }
+                />
+              </div> : null }
+            </div>
+            <div className={''}>
+              <Slider
+                axis="x"
+                xstep={1}
+                xmin={5}
+                xmax={35}
+                x={this.state.brushSlider}
+                onChange={({ x }) => this.setState({ brushSlider: parseInt(x.toFixed(100)) })}
+                styles={{
+                  active: {
+                    backgroundColor: this.state.color
+                  },
+                  thumb: {
+                    width: 15,
+                    height: 15,
+                    opacity: 0.8
+                  }
+                }}
+              />
+            </div>
+            <Button value="eraser" onClick={this.handleButtonSelection}>Eraser</Button>
+            <Button value="paintBrush" onClick={this.handleButtonSelection}>Paint</Button>
+          </Container>
+
+          <Container className='save-drawing'>
+            <Form>
+              <Form.Field>
+                <label>Title</label>
+                <Form.Input
+                  placeholder='Title'
+                  type='text'
+                  name='title'
+                  value={this.state.data.title}
+                  onChange={this.handleTitleChange}
+                  width={8}
+                />
+              </Form.Field>
+
+              <div className='radio-buttons'>
+                <h4>Corpse part: <b>{this.state.data.title}</b></h4>
+                <Label>Head</Label>
+                <Input
+                  type='radio'
+                  value='Head'
+                  checked={this.state.data.title === 'Head'}
+                  onChange={this.handleCatChange}
+                />
+                <Label>Body</Label>
+                <Input
+                  type='radio'
+                  value='Body'
+                  checked={this.state.data.title === 'Body'}
+                  onChange={this.handleCatChange}
+                />
+                <Label>Feet</Label>
+                <Input
+                  type='radio'
+                  value='Feet'
+                  checked={this.state.data.title === 'Feet'}
+                  onChange={this.handleCatChange}
                 />
               </div>
-              <Button value="eraser" onClick={this.handleButtonSelection}>Eraser</Button>
-              <Button value="paintBrush" onClick={this.handleButtonSelection}>Paint</Button>
+              <Button type='submit' onClick={this.handleSaveImg}>Save</Button>
+            </Form>
+          </Container>
 
-              <Form>
-                <Form.Field>
-                  <label>Title</label>
-                  <Form.Input
-                    placeholder='Title'
-                    type='text'
-                    name='title'
-                    value={this.state.data.title}
-                    onChange={this.handleTitleChange}
-                  />
-                </Form.Field>
-                <Button type='submit' onClick={this.handleSaveImg}>Save</Button>
-              </Form>
-            </Container>
-          </div>
+
           <ToastContainer style={{ textAlign: 'center' }}/>
         </Container>
       )
