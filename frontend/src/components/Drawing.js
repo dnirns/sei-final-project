@@ -225,7 +225,7 @@ class Drawing extends React.Component {
                   axis="x"
                   xstep={1}
                   xmin={5}
-                  xmax={50}
+                  xmax={35}
                   x={this.state.brushSlider}
                   onChange={({ x }) => this.setState({ brushSlider: parseInt(x.toFixed(100)) })}
                   styles={{
