@@ -35,7 +35,7 @@ class Register extends React.Component {
     } catch (err) {
       loginError('Incorrect Details')
       this.setState({ errors: err.response.data })
-      console.log(this.state.errors)
+      console.log(err.response.data)
 
     }
   }

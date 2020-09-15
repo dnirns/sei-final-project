@@ -5,7 +5,7 @@ import { Menu, Dropdown, Segment } from 'semantic-ui-react'
 const Nav = () => {
   return (
     <Segment basic>
-      <Menu secondary>
+      <Menu secondary className='nav'>
         <Link to='/'>
           <Menu.Item as='a'>
             Home
@@ -21,6 +21,13 @@ const Nav = () => {
             Gallery
           </Menu.Item>
         </Link>
+
+        <Link to='/corpse'>
+          <Menu.Item as='a'>
+            Corpse
+          </Menu.Item>
+        </Link>
+
         <Menu.Menu position='right'>
           <Dropdown item simple text='My Account'>
             <Dropdown.Menu>

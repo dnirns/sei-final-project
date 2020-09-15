@@ -26,7 +26,6 @@ class Drawing extends React.Component {
       url: '',
       category: ''
     }
-
   }
 
   componentDidMount() {
@@ -149,7 +148,7 @@ class Drawing extends React.Component {
       this.setState({ data })
       try {
         await saveDrawing({ data, url: dataURL, category: this.state.data.category, title: this.state.data.title })
-        this.props.history.push('/gallery')
+        this.props.history.push('/corpse')
       } catch (err) {
         drawingNotAuthorized('Please log in to save your drawing')
       }

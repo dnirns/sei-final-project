@@ -27,3 +27,10 @@ export const logout = () => {
 export const saveDrawing = data => {
   return axios.post('/api/drawings/', data, withHeaders())
 }
+
+
+//get user
+
+export const getUser = () => {
+  return axios.get('/api/auth/user', withHeaders())
+}

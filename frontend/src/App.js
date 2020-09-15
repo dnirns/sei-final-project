@@ -9,9 +9,7 @@ import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Combined from './components/drawings/Combined'
 import Single from './components/drawings/Single'
-
-
-
+import Corpse from './components/drawings/Corpse'
 
 const App = () => {
   return (
@@ -25,6 +23,7 @@ const App = () => {
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
           <Route path ='/drawing/:id' component={Single} />
+          <Route path='/corpse' component={Corpse} />
           <Route path='/combo' component={Combined} />
         </Switch>
       </Container>
