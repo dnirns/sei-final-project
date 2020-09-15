@@ -34,3 +34,4 @@ export const saveDrawing = data => {
 export const getUser = () => {
   return axios.get('/api/auth/user', withHeaders())
 }
+

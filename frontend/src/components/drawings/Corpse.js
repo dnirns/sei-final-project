@@ -15,7 +15,8 @@ class Corpse extends React.Component {
     feet: {},
     headUser: '',
     bodyUser: '',
-    feetUser: ''
+    feetUser: '',
+    name: ''
   }
 
   async componentDidMount() {
@@ -28,7 +29,7 @@ class Corpse extends React.Component {
     this.getBody()
     this.getLegs()
     this.getUserPart()
-    console.log(this.state.currentUserData)
+    this.getName()
   }
 
 
@@ -77,15 +78,37 @@ class Corpse extends React.Component {
     this.setState({ feetUser: this.state.feet.owner.username })
   }
 
+  getName = () => {
+    let firstName = ''
+    let middleName = ''
+    let lastName = ''
+    this.state.latestUserDrawing.category === 'Head'
+      ?
+      firstName = this.state.latestUserDrawing.title
+      :
+      firstName = this.state.head.title
+    this.state.latestUserDrawing.category === 'Body'
+      ?
+      middleName = this.state.latestUserDrawing.title
+      :
+      middleName = this.state.body.title
+    this.state.latestUserDrawing.category === 'Feet'
+      ?
+      lastName = this.state.latestUserDrawing.title
+      :
+      lastName = this.state.feet.title
+      
+    const name = `${firstName} ${middleName} ${lastName}`
+    this.setState({ name: name })
+  }
 
   render() {
-
-    const { head, body, feet, currentUserData, latestUserDrawing, data, headUser, bodyUser, feetUser } = this.state
+    const { head, body, feet, currentUserData, latestUserDrawing, headUser, bodyUser, feetUser } = this.state
     return (
       <>
         <Container textAlign='center'>
           <Segment basic>
-            <h2>Your Exquisite Corpse</h2>
+            <h3>{this.state.name}</h3>
           </Segment>
           <div>
             <Image src={latestUserDrawing.category === 'Head' ? latestUserDrawing.url : head.url } size='medium' centered/>
@@ -98,10 +121,10 @@ class Corpse extends React.Component {
           </div>
         </Container>
         <Segment basic textAlign='center'>
-          <p>Head by {latestUserDrawing.category === 'Head' ? currentUserData.username :  headUser },
+          <h4>Head by {latestUserDrawing.category === 'Head' ? currentUserData.username :  headUser },
             body by {latestUserDrawing.category === 'Body' ? currentUserData.username :  bodyUser },
             and feet by {latestUserDrawing.category === 'Feet' ? currentUserData.username :  feetUser }
-          </p>
+          </h4>
         </Segment>
       </>
     )

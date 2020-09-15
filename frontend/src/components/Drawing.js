@@ -115,7 +115,6 @@ class Drawing extends React.Component {
       }
     }
 
-    //COLOR PICKER FUNCTIONS
     handleColorClick = () => {
       this.setState({ displayColorPicker: !this.state.displayColorPicker, cursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=125360), auto', globalCompositeOperation: 'source-over' })
     }
@@ -128,7 +127,6 @@ class Drawing extends React.Component {
     handleChangeComplete = (color) => {
       this.setState({ background: color.hex })
     }
-
 
     handleTitleChange = e => {
       const data = { ...this.state.data, title: e.target.value }
@@ -187,6 +185,7 @@ class Drawing extends React.Component {
       })
       return (
         <Container text>
+          <h1>Draw</h1>
           <div className="drawing-wrapper">
             <div onContextMenu={e => e.preventDefault()}>
               <Stage width={700} height={700}>
@@ -252,7 +251,18 @@ class Drawing extends React.Component {
           <Container className='save-drawing'>
             <Form>
               <Form.Field>
-                <label>Title</label>
+                {
+                  data.category === '' ? <h4>Name:</h4> : null
+                }
+                {
+                  data.category === 'Head' ? <h4>First name:</h4> : null
+                }
+                {
+                  data.category === 'Body' ? <h4>Middle name:</h4> : null
+                }
+                {
+                  data.category === 'Feet' ? <h4>Last name</h4> : null
+                }
                 <Form.Input
                   placeholder='Title'
                   type='text'
