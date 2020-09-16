@@ -1,15 +1,19 @@
 import React from 'react'
 import Slider from 'react-input-slider'
 
-const SizeSlider = ({ brushSlider, color }) => {
+const SizeSlider = ({ brushSlider, color, handleSlider }) => {
   return (
+
     <div className={''}>
+      <button onClick={handleSlider}>Button</button>
       <Slider
-        axis="x"
+        axis='x'
         xstep={1}
         xmin={5}
         xmax={35}
-        x={brushSlider}
+        x={ brushSlider }
+        // onChange={}
+        onClick={({ x }) => console.log( x )}
         styles={{
           active: {
             backgroundColor: color

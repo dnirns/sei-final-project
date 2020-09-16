@@ -1,12 +1,14 @@
 import React from 'react'
 import { Image, Stage, Layer } from 'react-konva'
-import { Container, Button, Form, Input, Label } from 'semantic-ui-react'
+import { Container, Button } from 'semantic-ui-react'
 import { saveDrawing } from '../lib/api'
 import { ToastContainer } from 'react-toastify'
 import { drawingNotAuthorized } from '../lib/notifications'
 import Modal from 'react-modal'
 import ColorPicker from './drawing-components/ColorPicker'
-import SizeSlider from './drawing-components/Slider'
+// import SizeSlider from './drawing-components/Slider'
+import Slider from 'react-input-slider'
+import SaveModal from './drawing-components/Modal'
 
 Modal.setAppElement('#root')
 
@@ -87,9 +89,10 @@ class Drawing extends React.Component {
       this.setState({ size: e.target.value })
     }
 
-    handleSlider = (x) => {
-      this.setState({ brushSlider: parseInt(x.toFixed(100)) })
-    }
+    // handleSlider = (x) => {
+    //   console.log(this)
+    //   this.setState({ brushSlider: parseInt(x.toFixed(100)) })
+    // }
 
 
     //RANDOM SIZE/COLOR ON WHEEL SPIN
@@ -155,7 +158,7 @@ class Drawing extends React.Component {
         await saveDrawing({ data, url: dataURL, category: this.state.data.category, title: this.state.data.title })
         this.props.history.push('/corpse')
       } catch (err) {
-        drawingNotAuthorized('Please log in to save your drawing')
+        drawingNotAuthorized('Choose part and name to save...')
       }
     }
 
@@ -167,8 +170,16 @@ class Drawing extends React.Component {
     }
 
     render() {
-      const { canvas, data , modalIsOpen } = this.state
 
+      const {
+        canvas,
+        color,
+        brushSlider,
+        displayColorPicker,
+        data,
+        modalIsOpen,
+        cursor
+      } = this.state
 
       return (
         <Container text>
@@ -184,7 +195,7 @@ class Drawing extends React.Component {
                     height={700}
                     onMouseEnter={e => {
                       const container = e.target.getStage().container()
-                      container.style.cursor = this.state.cursor
+                      container.style.cursor = cursor
                     }}
                     onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
@@ -197,28 +208,29 @@ class Drawing extends React.Component {
           </div>
           <Container basic>
             <ColorPicker
-              color={this.state.color}
+              color={color}
               handleColorClick={this.handleColorClick}
-              displayColorPicker={this.state.displayColorPicker}
+              displayColorPicker={displayColorPicker}
               handleColorClose={this.handleColorClose}
               handleColorChange={this.handleColorChange}
             />
-
-            <SizeSlider
+            {/* <SizeSlider
+              color={this.state.color}
               brushSlider={this.state.brushSlider}
-              onChange={({ x }) => this.setState({ brushSlider: parseInt(x.toFixed(100)) })}
-            />
-            {/* <div className={''}>
+              handleSlider={this.handleSlider}
+
+            /> */}
+            <div className={''}>
               <Slider
                 axis="x"
                 xstep={1}
                 xmin={5}
                 xmax={35}
-                x={this.state.brushSlider}
+                x={brushSlider}
                 onChange={({ x }) => this.setState({ brushSlider: parseInt(x.toFixed(100)) })}
                 styles={{
                   active: {
-                    backgroundColor: this.state.color
+                    backgroundColor: color
                   },
                   thumb: {
                     width: 15,
@@ -227,80 +239,19 @@ class Drawing extends React.Component {
                   }
                 }}
               />
-            </div> */}
+            </div>
             <Button value="eraser" onClick={this.handleButtonSelection}>Eraser</Button>
             <Button value="paintBrush" onClick={this.handleButtonSelection}>Paint</Button>
           </Container>
-
-          <Container className='save-drawing'>
-            <Button onClick={this.openModal}>Save</Button>
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={this.closeModal}
-              style={
-                {
-                  overlay: {
-                    backgroundColor: 'rgba(255, 255, 255, 0.75)'
-
-                  }
-                }
-              }
-            >
-
-              <Form>
-                <Form.Field>
-                  {
-                    data.category === '' ? <h4>Give them a name..</h4> : null
-                  }
-                  {
-                    data.category === 'Head' ? <h4>First name:</h4> : null
-                  }
-                  {
-                    data.category === 'Body' ? <h4>Middle name:</h4> : null
-                  }
-                  {
-                    data.category === 'Feet' ? <h4>Last name</h4> : null
-                  }
-                  <Form.Input
-                    placeholder='Name'
-                    type='text'
-                    name='title'
-                    value={data.title}
-                    onChange={this.handleTitleChange}
-                    width={8}
-                  />
-                </Form.Field>
-
-                <div className='radio-buttons'>
-                  <h4>Corpse part: <b>{data.category}</b></h4>
-                  <Label>Head</Label>
-                  <Input
-                    type='radio'
-                    value='Head'
-                    checked={data.category === 'Head'}
-                    onChange={this.handleCatChange}
-                  />
-                  <Label>Body</Label>
-                  <Input
-                    type='radio'
-                    value='Body'
-                    checked={data.category === 'Body'}
-                    onChange={this.handleCatChange}
-                  />
-                  <Label>Feet</Label>
-                  <Input
-                    type='radio'
-                    value='Feet'
-                    checked={data.category === 'Feet'}
-                    onChange={this.handleCatChange}
-                  />
-                </div>
-                <Button type='submit' onClick={this.handleSaveImg}>Save</Button>
-              </Form>
-
-            </Modal>
-          </Container>
-
+          <SaveModal
+            data={data}
+            modalIsOpen={modalIsOpen}
+            handleCatChange={this.handleCatChange}
+            openModal={this.openModal}
+            closeModal={this.closeModal}
+            handleTitleChange={this.handleTitleChange}
+            handleSaveImg={this.handleSaveImg}
+          />
           <ToastContainer style={{ textAlign: 'center' }}/>
 
         </Container>
