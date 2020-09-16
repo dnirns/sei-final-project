@@ -9,6 +9,7 @@ import ColorPicker from './drawing-components/ColorPicker'
 // import SizeSlider from './drawing-components/Slider'
 import Slider from 'react-input-slider'
 import SaveModal from './drawing-components/Modal'
+import ColorSwatches from './drawing-components/ColorSwatches'
 
 Modal.setAppElement('#root')
 
@@ -20,6 +21,8 @@ class Drawing extends React.Component {
     eraser: false,
     size: 5,
     globalCompositeOperation: 'source-over',
+    paintCursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=125360), auto',
+    eraserCursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=72976), auto',
     cursor: '',
     displayColorPicker: false,
     color: '#000000',
@@ -71,12 +74,12 @@ class Drawing extends React.Component {
         x: pos.x - this.image.x(),
         y: pos.y - this.image.y()
       }
-      //* BRUSH STYLES
+      // BRUSH STYLES
       context.strokeStyle = this.state.color
       context.lineJoin = 'round'
       context.lineWidth = this.state.brushSlider
       context.globalCompositeOperation = this.state.globalCompositeOperation
-      //* DRAW
+      // DRAW
       context.lineTo(localPos.x, localPos.y)
       context.closePath()
       context.stroke()
@@ -89,44 +92,29 @@ class Drawing extends React.Component {
       this.setState({ size: e.target.value })
     }
 
-    // handleSlider = (x) => {
-    //   console.log(this)
-    //   this.setState({ brushSlider: parseInt(x.toFixed(100)) })
-    // }
-
-
-    //RANDOM SIZE/COLOR ON WHEEL SPIN
-    // handleWheel = () => {
-    //   console.log('wheel spinning')
-    //   const size = Math.floor(Math.random() * 50)
-    //   const r = Math.floor(Math.random() * 255)
-    //   const g = Math.floor(Math.random() * 255)
-    //   const b = Math.floor(Math.random() * 255)
-    //   const randomColor = `rgb(${r},${g},${b})`
-    //   this.setState({ color: randomColor, brushSlider: size })
-    // }
-
     handleButtonSelection = (e) => {
       const paint = 'source-over'
       const erase = 'destination-out'
-      const eraserIcon = 'url(http://www.rw-designer.com/cursor-extern.php?id=72976), auto'
-      const paintIcon = 'url(./assets/icons/paint-brush-32.png)'
+
 
       if (e.target.value === 'eraser') {
         this.setState({
           globalCompositeOperation: erase,
-          cursor: eraserIcon
+          cursor: this.state.eraserCursor
         })
       } else {
         this.setState({
           globalCompositeOperation: paint,
-          cursor: paintIcon
+          cursor: this.state.paintCursor
         })
       }
     }
 
     handleColorClick = () => {
-      this.setState({ displayColorPicker: !this.state.displayColorPicker, cursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=125360), auto', globalCompositeOperation: 'source-over' })
+      this.setState({
+        displayColorPicker: !this.state.displayColorPicker,
+        cursor: this.state.paintCursor,
+        globalCompositeOperation: 'source-over' })
     }
     handleColorClose = () => {
       this.setState({ displayColorPicker: false })
@@ -136,6 +124,14 @@ class Drawing extends React.Component {
     }
     handleChangeComplete = (color) => {
       this.setState({ background: color.hex })
+    }
+
+    handleColorSwatches = (e) => {
+      this.setState({
+        color: e.target.value,
+        globalCompositeOperation: 'source-over',
+        cursor: this.state.paintCursor
+      })
     }
 
     handleTitleChange = e => {
@@ -155,7 +151,11 @@ class Drawing extends React.Component {
       const data = { ...this.state.data }
       this.setState({ data })
       try {
-        await saveDrawing({ data, url: dataURL, category: this.state.data.category, title: this.state.data.title })
+        await saveDrawing({
+          data,
+          url: dataURL,
+          category: this.state.data.category,
+          title: this.state.data.title })
         this.props.history.push('/corpse')
       } catch (err) {
         drawingNotAuthorized('Choose part and name to save...')
@@ -170,7 +170,7 @@ class Drawing extends React.Component {
     }
 
     render() {
-
+      console.log(this.state.color)
       const {
         canvas,
         color,
@@ -182,9 +182,11 @@ class Drawing extends React.Component {
       } = this.state
 
       return (
+
         <Container text>
           <h1>Draw a head, body or legs...</h1>
           <div className="drawing-wrapper">
+            <ColorSwatches handleColorSwatches={this.handleColorSwatches}/>
             <div onContextMenu={e => e.preventDefault()}>
               <Stage width={700} height={700}>
                 <Layer>
@@ -200,7 +202,6 @@ class Drawing extends React.Component {
                     onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
                     onMouseMove={this.handleMouseMove}
-                    onWheel={this.handleWheel}
                   />
                 </Layer>
               </Stage>
@@ -214,12 +215,6 @@ class Drawing extends React.Component {
               handleColorClose={this.handleColorClose}
               handleColorChange={this.handleColorChange}
             />
-            {/* <SizeSlider
-              color={this.state.color}
-              brushSlider={this.state.brushSlider}
-              handleSlider={this.handleSlider}
-
-            /> */}
             <div className={''}>
               <Slider
                 axis="x"
@@ -253,7 +248,6 @@ class Drawing extends React.Component {
             handleSaveImg={this.handleSaveImg}
           />
           <ToastContainer style={{ textAlign: 'center' }}/>
-
         </Container>
       )
     }

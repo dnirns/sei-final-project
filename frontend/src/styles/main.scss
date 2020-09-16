@@ -11,3 +11,68 @@
 .gallery-item {
   width: 40vw;
 }
+
+.drawing-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.color-option {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  margin-right: 15px;
+  margin-bottom: 10px;
+}
+
+.color-option:hover {
+  cursor: pointer;
+}
+
+.color-option.black {
+  background-color: #000000;
+  margin-top: 0;
+}
+.color-option.grey {
+  background-color: #7d7d7d;
+}
+.color-option.red {
+  background-color: #ff2f2f;
+}
+.color-option.pink {
+  background-color: #ff8ac1;
+}
+.color-option.yellow {
+  background-color: #fce641;
+}
+.color-option.orange {
+  background-color: #fa7731;
+}
+.color-option.turquoise {
+  background-color: #8efaf0;
+}
+.color-option.light-blue {
+  background-color: #5a91f0;
+}
+.color-option.dark-blue {
+  background-color: #0e3b8a;
+}
+.color-option.purple {
+  background-color: #9142ff;
+}
+.color-option.light-green {
+  background-color: #81f76a;
+}
+.color-option.dark-green {
+  background-color: #24960e;
+  margin-bottom: 0;
+}
+
+
