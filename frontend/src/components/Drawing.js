@@ -1,14 +1,12 @@
 import React from 'react'
 import { Image, Stage, Layer } from 'react-konva'
-
-import Slider from 'react-input-slider'
-
 import { Container, Button, Form, Input, Label } from 'semantic-ui-react'
 import { saveDrawing } from '../lib/api'
 import { ToastContainer } from 'react-toastify'
 import { drawingNotAuthorized } from '../lib/notifications'
 import Modal from 'react-modal'
 import ColorPicker from './drawing-components/ColorPicker'
+import SizeSlider from './drawing-components/Slider'
 
 Modal.setAppElement('#root')
 
@@ -88,6 +86,11 @@ class Drawing extends React.Component {
     changeSize = (e) => {
       this.setState({ size: e.target.value })
     }
+
+    handleSlider = (x) => {
+      this.setState({ brushSlider: parseInt(x.toFixed(100)) })
+    }
+
 
     //RANDOM SIZE/COLOR ON WHEEL SPIN
     // handleWheel = () => {
@@ -200,7 +203,12 @@ class Drawing extends React.Component {
               handleColorClose={this.handleColorClose}
               handleColorChange={this.handleColorChange}
             />
-            <div className={''}>
+
+            <SizeSlider
+              brushSlider={this.state.brushSlider}
+              onChange={({ x }) => this.setState({ brushSlider: parseInt(x.toFixed(100)) })}
+            />
+            {/* <div className={''}>
               <Slider
                 axis="x"
                 xstep={1}
@@ -219,7 +227,7 @@ class Drawing extends React.Component {
                   }
                 }}
               />
-            </div>
+            </div> */}
             <Button value="eraser" onClick={this.handleButtonSelection}>Eraser</Button>
             <Button value="paintBrush" onClick={this.handleButtonSelection}>Paint</Button>
           </Container>

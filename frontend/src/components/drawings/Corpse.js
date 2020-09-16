@@ -36,8 +36,12 @@ class Corpse extends React.Component {
   getUserPart = () => {
     const userDrawings = []
     this.state.data.map((drawing) => {
-      if (drawing.owner.id === this.state.currentUserData.id)
+      if (drawing.owner.id === this.state.currentUserData.id) {
         return userDrawings.push(drawing)
+      } else {
+        return false
+      }
+
     })
     const lastDrawing = userDrawings[userDrawings.length - 1]
     this.setState({ latestUserDrawing: lastDrawing })
@@ -48,6 +52,8 @@ class Corpse extends React.Component {
     this.state.data.map((drawing) => {
       if (drawing.category === 'Head') {
         return headsArray.push(drawing)
+      } else {
+        return false
       }
     })
     const randomHead = Math.floor(Math.random() * headsArray.length)
@@ -60,6 +66,8 @@ class Corpse extends React.Component {
     this.state.data.map((body) => {
       if (body.category === 'Body') {
         return bodyArray.push(body)
+      } else {
+        return false
       }
     })
     const randomBody = Math.floor(Math.random() * bodyArray.length)
@@ -71,6 +79,8 @@ class Corpse extends React.Component {
     this.state.data.map((foot) => {
       if (foot.category === 'Feet') {
         return feetArray.push(foot)
+      } else {
+        return false
       }
     })
     const randomFeet = Math.floor(Math.random() * feetArray.length)
@@ -97,7 +107,7 @@ class Corpse extends React.Component {
       lastName = this.state.latestUserDrawing.title
       :
       lastName = this.state.feet.title
-      
+
     const name = `${firstName} ${middleName} ${lastName}`
     this.setState({ name: name })
   }

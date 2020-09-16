@@ -1,5 +1,5 @@
 import React from 'react'
-import { Segment, Image, Container, Grid } from 'semantic-ui-react'
+import { Segment, Image, Container } from 'semantic-ui-react'
 
 
 
@@ -29,11 +29,13 @@ class testRequest extends React.Component {
     this.state.data.map((drawing) => {
       if (drawing.category === 'Head') {
         return headsArray.push(drawing)
+      } else {
+        return false
       }
     })
     const randomHead = Math.floor(Math.random() * headsArray.length)
 
-    this.setState({ head: headsArray[randomHead]})
+    this.setState({ head: headsArray[randomHead] })
     this.setState({ headUser: this.state.head.owner.username })
   }
   getBody = () => {
@@ -41,6 +43,8 @@ class testRequest extends React.Component {
     this.state.data.map((body) => {
       if (body.category === 'Body') {
         return bodyArray.push(body)
+      } else {
+        return false
       }
     })
     const randomBody = Math.floor(Math.random() * bodyArray.length)
@@ -52,6 +56,8 @@ class testRequest extends React.Component {
     this.state.data.map((foot) => {
       if (foot.category === 'Feet') {
         return feetArray.push(foot)
+      } else {
+        return false
       }
     })
     const randomFeet = Math.floor(Math.random() * feetArray.length)

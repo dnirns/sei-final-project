@@ -13,9 +13,7 @@ class Login extends React.Component {
       email: '',
       password: ''
     },
-    errors: {
-
-    }
+    errors: {}
   }
 
   handleChange = e => {
@@ -32,7 +30,6 @@ class Login extends React.Component {
       loginSuccess(res.data.message)
       this.props.history.push('/drawing')
     } catch (err) {
-
       this.setState({ errors: err.response.data })
       loginError(`${this.state.errors.message}, try again.`)
     }
@@ -73,10 +70,8 @@ class Login extends React.Component {
         </Form>
         <ToastContainer style={{ textAlign: 'center' }}/>
       </>
-
     )
   }
-
 }
 
 export default Login

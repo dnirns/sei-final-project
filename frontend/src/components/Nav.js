@@ -18,7 +18,7 @@ class Nav extends React.Component {
         <Segment basic>
           <Menu secondary className='nav'>
             <Link to='/'>
-              <Menu.Item as='a'>
+              <Menu.Item>
                 Home
               </Menu.Item>
             </Link>
