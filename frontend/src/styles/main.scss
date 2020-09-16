@@ -18,6 +18,11 @@
   justify-content: center;
 }
 
+.controls-right {
+  display: flex;
+  flex-direction: column;
+}
+
 .color-options {
   display: flex;
   flex-direction: column;
@@ -30,12 +35,16 @@
   border-radius: 50%;
   margin-right: 15px;
   margin-bottom: 10px;
+  outline: none;
 }
 
 .color-option:hover {
   cursor: pointer;
+  opacity: 80%;
 }
-
+.color-option:active {
+  opacity: 90%;
+}
 .color-option.black {
   background-color: #000000;
   margin-top: 0;
@@ -76,3 +85,35 @@
 }
 
 
+.draw-button {
+  background-color: white;
+  opacity: 80%;
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  margin-top: 40px;
+  height: 64px;
+  width: 64px;
+}
+
+.draw-button.eraser {
+  background-image: url(../assets/icons/eraser-64.png);
+
+}
+
+.draw-button.paint {
+  background-image: url(../assets/icons/paint-brush-64.png);
+
+}
+.draw-button:hover {
+  opacity: 60%;
+}
+
+.draw-button:active {
+  opacity: 80%;
+}
+
+
+.save-button {
+  margin-top: 30px;
+}

@@ -1,15 +1,15 @@
 import React from 'react'
 import { Image, Stage, Layer } from 'react-konva'
-import { Container, Button } from 'semantic-ui-react'
+import { Container, Divider } from 'semantic-ui-react'
 import { saveDrawing } from '../lib/api'
 import { ToastContainer } from 'react-toastify'
 import { drawingNotAuthorized } from '../lib/notifications'
 import Modal from 'react-modal'
 import ColorPicker from './drawing-components/ColorPicker'
-// import SizeSlider from './drawing-components/Slider'
 import Slider from 'react-input-slider'
 import SaveModal from './drawing-components/Modal'
 import ColorSwatches from './drawing-components/ColorSwatches'
+
 
 Modal.setAppElement('#root')
 
@@ -26,7 +26,7 @@ class Drawing extends React.Component {
     cursor: '',
     displayColorPicker: false,
     color: '#000000',
-    brushSlider: 8,
+    brushSlider: 4,
     data: {
       title: '',
       url: '',
@@ -96,14 +96,14 @@ class Drawing extends React.Component {
       const paint = 'source-over'
       const erase = 'destination-out'
 
-
+      console.log(e.target.value)
       if (e.target.value === 'eraser') {
-        this.setState({
+        return this.setState({
           globalCompositeOperation: erase,
           cursor: this.state.eraserCursor
         })
       } else {
-        this.setState({
+        return this.setState({
           globalCompositeOperation: paint,
           cursor: this.state.paintCursor
         })
@@ -170,7 +170,6 @@ class Drawing extends React.Component {
     }
 
     render() {
-      console.log(this.state.color)
       const {
         canvas,
         color,
@@ -182,9 +181,9 @@ class Drawing extends React.Component {
       } = this.state
 
       return (
-
-        <Container text>
-          <h1>Draw a head, body or legs...</h1>
+        <Container textAlign='center'>
+          <h3>Draw a head, body or legs</h3>
+          <Divider hidden />
           <div className="drawing-wrapper">
             <ColorSwatches handleColorSwatches={this.handleColorSwatches}/>
             <div onContextMenu={e => e.preventDefault()}>
@@ -206,38 +205,40 @@ class Drawing extends React.Component {
                 </Layer>
               </Stage>
             </div>
-          </div>
-          <Container basic>
-            <ColorPicker
-              color={color}
-              handleColorClick={this.handleColorClick}
-              displayColorPicker={displayColorPicker}
-              handleColorClose={this.handleColorClose}
-              handleColorChange={this.handleColorChange}
-            />
-            <div className={''}>
-              <Slider
-                axis="x"
-                xstep={1}
-                xmin={5}
-                xmax={35}
-                x={brushSlider}
-                onChange={({ x }) => this.setState({ brushSlider: parseInt(x.toFixed(100)) })}
-                styles={{
-                  active: {
-                    backgroundColor: color
-                  },
-                  thumb: {
-                    width: 15,
-                    height: 15,
-                    opacity: 0.8
-                  }
-                }}
+            <div className='controls-right'>
+              <div className={'slider'}>
+                <Slider
+                  yreverse={true}
+                  axis="y"
+                  ystep={1}
+                  ymin={2}
+                  ymax={40}
+                  y={brushSlider}
+                  onChange={({ y }) => this.setState({ brushSlider: parseInt(y.toFixed(100)) })}
+                  styles={{
+                    active: {
+                      backgroundColor: color
+                    },
+                    thumb: {
+                      width: 15,
+                      height: 15,
+                      opacity: 0.8
+                    }
+                  }}
+                />
+              </div>
+              <ColorPicker
+                color={color}
+                handleColorClick={this.handleColorClick}
+                displayColorPicker={displayColorPicker}
+                handleColorClose={this.handleColorClose}
+                handleColorChange={this.handleColorChange}
               />
+              <button value='eraser' onClick={this.handleButtonSelection} className='eraser draw-button'></button>
+              <button value='paintBrush' onClick={this.handleButtonSelection} className='paint draw-button'></button>
             </div>
-            <Button value="eraser" onClick={this.handleButtonSelection}>Eraser</Button>
-            <Button value="paintBrush" onClick={this.handleButtonSelection}>Paint</Button>
-          </Container>
+          </div>
+          <Divider hidden/>
           <SaveModal
             data={data}
             modalIsOpen={modalIsOpen}

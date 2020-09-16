@@ -72,7 +72,9 @@ const SaveModal = ({ data, modalIsOpen, openModal, closeModal, handleCatChange, 
                   onChange={handleTitleChange}
                 />
               </Form.Field>
+
               <Button type='submit' onClick={handleSaveImg}>Save</Button>
+
             </Form>
           </Grid.Column>
         </Grid>
