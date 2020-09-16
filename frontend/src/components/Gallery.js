@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Image } from 'semantic-ui-react'
+import { Grid, Image, Segment } from 'semantic-ui-react'
 
 
 
@@ -25,6 +25,9 @@ class testRequest extends React.Component {
   render() {
     return (
       <>
+        <Segment basic textAlign='center'>
+          <h2>All the parts...</h2>
+        </Segment>
         <Grid container relaxed columns={3}>
           {this.state.data.map((drawing) => {
             return <Grid.Column key={drawing.id} className="gallery-item" src={drawing.url}>
@@ -36,6 +39,7 @@ class testRequest extends React.Component {
           })
           }
         </Grid>
+
       </>
     )
   }

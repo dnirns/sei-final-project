@@ -29,8 +29,8 @@ class Login extends React.Component {
     try {
       const res = await login(this.state.data)
       setToken(res.data.token)
-      this.props.history.push('/drawing')
       loginSuccess(res.data.message)
+      this.props.history.push('/drawing')
     } catch (err) {
 
       this.setState({ errors: err.response.data })
@@ -48,6 +48,7 @@ class Login extends React.Component {
             <label>Email</label>
             <Form.Input
               error={!errors.message ? false : errors.message}
+              placeholder='Email'
               name='email'
               value={data.email}
               onChange={this.handleChange}

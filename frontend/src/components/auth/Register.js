@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { register } from '../../lib/api'
 import { } from '../../lib/auth'
 import { Container, Button, Form } from 'semantic-ui-react'
-import { loginSuccess, loginError } from '../../lib/notifications'
+import { registrationSuccess, registrationError } from '../../lib/notifications'
 import { ToastContainer } from 'react-toastify'
 
 
@@ -30,13 +30,12 @@ class Register extends React.Component {
 
     try {
       const res = await register(this.state.data)
-      loginSuccess(res.data.message)
       this.props.history.push('/login')
+      registrationSuccess(res.data.message)
+      console.log(res.data.message)
     } catch (err) {
-      loginError('Incorrect Details')
+      registrationError('Incorrect details, please try again')
       this.setState({ errors: err.response.data })
-      console.log(err.response.data)
-
     }
   }
 

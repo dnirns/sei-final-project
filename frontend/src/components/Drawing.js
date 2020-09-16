@@ -1,13 +1,16 @@
 import React from 'react'
 import { Image, Stage, Layer } from 'react-konva'
-import { SketchPicker } from 'react-color'
+
 import Slider from 'react-input-slider'
-import reactCSS from 'reactcss'
+
 import { Container, Button, Form, Input, Label } from 'semantic-ui-react'
 import { saveDrawing } from '../lib/api'
 import { ToastContainer } from 'react-toastify'
 import { drawingNotAuthorized } from '../lib/notifications'
+import Modal from 'react-modal'
+import ColorPicker from './drawing-components/ColorPicker'
 
+Modal.setAppElement('#root')
 
 class Drawing extends React.Component {
 
@@ -25,7 +28,8 @@ class Drawing extends React.Component {
       title: '',
       url: '',
       category: ''
-    }
+    },
+    modalIsOpen: false
   }
 
   componentDidMount() {
@@ -100,7 +104,7 @@ class Drawing extends React.Component {
       const paint = 'source-over'
       const erase = 'destination-out'
       const eraserIcon = 'url(http://www.rw-designer.com/cursor-extern.php?id=72976), auto'
-      const paintIcon = 'url(http://www.rw-designer.com/cursor-extern.php?id=125360), auto'
+      const paintIcon = 'url(./assets/icons/paint-brush-32.png)'
 
       if (e.target.value === 'eraser') {
         this.setState({
@@ -152,40 +156,20 @@ class Drawing extends React.Component {
       }
     }
 
+    openModal = () => {
+      this.setState({ modalIsOpen: true })
+    }
+    closeModal = ()=> {
+      this.setState({ modalIsOpen: false })
+    }
+
     render() {
-      const { canvas, data } = this.state
+      const { canvas, data , modalIsOpen } = this.state
 
 
-      const styles = reactCSS({
-        'default': {
-          color: {
-            width: '50px',
-            height: '50px',
-            borderRadius: '50%',
-            background: this.state.color
-          },
-          swatch: {
-            padding: '5px',
-            background: '#fff',
-            display: 'inline-block',
-            cursor: 'pointer'
-          },
-          popover: {
-            position: 'absolute',
-            zIndex: '2'
-          },
-          cover: {
-            position: 'fixed',
-            top: '0px',
-            right: '0px',
-            bottom: '0px',
-            left: '0px'
-          }
-        }
-      })
       return (
         <Container text>
-          <h1>Draw</h1>
+          <h1>Draw a head, body or legs...</h1>
           <div className="drawing-wrapper">
             <div onContextMenu={e => e.preventDefault()}>
               <Stage width={700} height={700}>
@@ -209,21 +193,13 @@ class Drawing extends React.Component {
             </div>
           </div>
           <Container basic>
-            <div className='color-swatch'>
-              <div style={ styles.swatch } onClick={ this.handleColorClick }>
-                <div style={ styles.color } />
-              </div>
-              {this.state.displayColorPicker ? <div style={ styles.popover }>
-                <div
-                  style={ styles.cover }
-                  onClick={ this.handleColorClose }
-                />
-                <SketchPicker
-                  color={ this.state.color }
-                  onChange={ this.handleColorChange }
-                />
-              </div> : null }
-            </div>
+            <ColorPicker
+              color={this.state.color}
+              handleColorClick={this.handleColorClick}
+              displayColorPicker={this.state.displayColorPicker}
+              handleColorClose={this.handleColorClose}
+              handleColorChange={this.handleColorChange}
+            />
             <div className={''}>
               <Slider
                 axis="x"
@@ -249,60 +225,76 @@ class Drawing extends React.Component {
           </Container>
 
           <Container className='save-drawing'>
-            <Form>
-              <Form.Field>
+            <Button onClick={this.openModal}>Save</Button>
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={this.closeModal}
+              style={
                 {
-                  data.category === '' ? <h4>Name:</h4> : null
-                }
-                {
-                  data.category === 'Head' ? <h4>First name:</h4> : null
-                }
-                {
-                  data.category === 'Body' ? <h4>Middle name:</h4> : null
-                }
-                {
-                  data.category === 'Feet' ? <h4>Last name</h4> : null
-                }
-                <Form.Input
-                  placeholder='Title'
-                  type='text'
-                  name='title'
-                  value={data.title}
-                  onChange={this.handleTitleChange}
-                  width={8}
-                />
-              </Form.Field>
+                  overlay: {
+                    backgroundColor: 'rgba(255, 255, 255, 0.75)'
 
-              <div className='radio-buttons'>
-                <h4>Corpse part: <b>{data.category}</b></h4>
-                <Label>Head</Label>
-                <Input
-                  type='radio'
-                  value='Head'
-                  checked={data.category === 'Head'}
-                  onChange={this.handleCatChange}
-                />
-                <Label>Body</Label>
-                <Input
-                  type='radio'
-                  value='Body'
-                  checked={data.category === 'Body'}
-                  onChange={this.handleCatChange}
-                />
-                <Label>Feet</Label>
-                <Input
-                  type='radio'
-                  value='Feet'
-                  checked={data.category === 'Feet'}
-                  onChange={this.handleCatChange}
-                />
-              </div>
-              <Button type='submit' onClick={this.handleSaveImg}>Save</Button>
-            </Form>
+                  }
+                }
+              }
+            >
+
+              <Form>
+                <Form.Field>
+                  {
+                    data.category === '' ? <h4>Give them a name..</h4> : null
+                  }
+                  {
+                    data.category === 'Head' ? <h4>First name:</h4> : null
+                  }
+                  {
+                    data.category === 'Body' ? <h4>Middle name:</h4> : null
+                  }
+                  {
+                    data.category === 'Feet' ? <h4>Last name</h4> : null
+                  }
+                  <Form.Input
+                    placeholder='Name'
+                    type='text'
+                    name='title'
+                    value={data.title}
+                    onChange={this.handleTitleChange}
+                    width={8}
+                  />
+                </Form.Field>
+
+                <div className='radio-buttons'>
+                  <h4>Corpse part: <b>{data.category}</b></h4>
+                  <Label>Head</Label>
+                  <Input
+                    type='radio'
+                    value='Head'
+                    checked={data.category === 'Head'}
+                    onChange={this.handleCatChange}
+                  />
+                  <Label>Body</Label>
+                  <Input
+                    type='radio'
+                    value='Body'
+                    checked={data.category === 'Body'}
+                    onChange={this.handleCatChange}
+                  />
+                  <Label>Feet</Label>
+                  <Input
+                    type='radio'
+                    value='Feet'
+                    checked={data.category === 'Feet'}
+                    onChange={this.handleCatChange}
+                  />
+                </div>
+                <Button type='submit' onClick={this.handleSaveImg}>Save</Button>
+              </Form>
+
+            </Modal>
           </Container>
 
-
           <ToastContainer style={{ textAlign: 'center' }}/>
+
         </Container>
       )
     }
