@@ -1,4 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
 
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC:400,700');
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Permanent+Marker&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+
+.corpse-img {
+  width: 220px;
+  height: 220px;
+}
 .konvajs-content {
   border: 1px solid grey;
   background: white;
@@ -12,12 +27,15 @@
   width: 40vw;
 }
 
+// drawing page
+// canvas
 .drawing-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+// controls
 .controls-right {
   display: flex;
   flex-direction: column;
@@ -84,7 +102,6 @@
   margin-bottom: 0;
 }
 
-
 .draw-button {
   background-color: white;
   opacity: 80%;
@@ -113,7 +130,166 @@
   opacity: 80%;
 }
 
+// modal
+.modal-form {
+  margin: 20px;
+}
 
-.save-button {
-  margin-top: 30px;
+.home-button {
+  background-color: rgb(189, 189, 189);
+  color: white;
+  padding: 10px;
+  margin-top: 40px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+.home-button:hover {
+  color: white;
+  opacity: 70%;
+}
+.home-button:active {
+  opacity: 90%;
+}
+// homepage main div
+.homepage {
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+//custom fonts
+.crimson-home {
+  font-family: 'Crimson Text', serif;
+  font-size: 5rem;
+  font-weight: normal;
+  padding: 100px;
+}
+
+.crimson {
+  font-family: 'Crimson Text', serif;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.crimson-light {
+  font-family: 'Crimson Text', serif;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.crimson-s {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+.crimson-s-light {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.crimson-s-light-i {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.crimson-s-form {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+// animations for home page
+
+.home-animated-1 {
+  font-family: 'Rock Salt', cursive;
+  font-size: 3rem;
+  color: #ff588d;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  letter-spacing: 1.2rem;
+}
+.home-animated-2 {
+  font-family: 'Gochi Hand', cursive;
+  font-size: 6rem;
+  color: #04b8ff;
+  padding-bottom: 50px;
+  letter-spacing: 2rem;
+}
+.home-animated-3 {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 5rem;
+  color: #1abc02;
+  padding-bottom: 50px;
+  letter-spacing: 2.5rem;
+}
+
+
+@media (max-width: 640px) {
+  .home-animated-1 {
+    font-size: 1.3rem;
+  }
+  .home-animated-2 {
+    font-size: 1.5rem;
+  }
+  .home-animated-3 {
+    font-size: 1.5rem;
+  }
+}
+.animate-home {
+  -webkit-animation: home-anim 0.34s linear infinite;
+          animation: home-anim 0.34s linear infinite;
+
+@-webkit-keyframes home-anim {
+  0% {
+    -webkit-filter: url("#home-0");
+            filter: url("#home-0");
+  }
+  25% {
+    -webkit-filter: url("#home-1");
+            filter: url("#home-1");
+  }
+  50% {
+    -webkit-filter: url("#home-2");
+            filter: url("#home-2");
+  }
+  75% {
+    -webkit-filter: url("#home-3");
+            filter: url("#home-3");
+  }
+  100% {
+    -webkit-filter: url("#home-4");
+            filter: url("#home-4");
+  }
+}
+@keyframes home-anim {
+  0% {
+    -webkit-filter: url("#home-0");
+            filter: url("#home-0");
+  }
+  25% {
+    -webkit-filter: url("#home-1");
+            filter: url("#home-1");
+  }
+  50% {
+    -webkit-filter: url("#home-2");
+            filter: url("#home-2");
+  }
+  75% {
+    -webkit-filter: url("#home-3");
+            filter: url("#home-3");
+  }
+  100% {
+    -webkit-filter: url("#home-4");
+            filter: url("#home-4");
+  }
+}
 }

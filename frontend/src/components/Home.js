@@ -1,18 +1,30 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Container, Segment, Button } from 'semantic-ui-react'
+import { Link, withRouter } from 'react-router-dom'
+import { isAuthenticated } from '../lib/auth'
+import AnimateText from '../styles/AnimateText'
 
-const Home = () => {
-  return (
-    <Container textAlign='center'>
+class Home extends React.Component {
 
-      <Segment basic>
-        <Link to='/drawing'><Button size='huge'>Make an Exquisite Corpse</Button></Link>
-      </Segment>
-    </Container>
-
-
-  )
+  render() {
+    return (
+      <>
+        <div className='homepage'>
+          <div className='animate-home'>
+            <h2 className='home-animated-1'>An</h2>
+            <h2 className='home-animated-2'>Exquisite</h2>
+            <h2 className='home-animated-3'>Corpse</h2>
+          </div>
+          {
+            isAuthenticated() ?
+              <Link to='/drawing'><button className='home-button'><h3 className='crimson-s-light-i'>Make your Exquisite Corpse</h3></button></Link>
+              :
+              <Link to='/login'><button className='home-button'><h3 className='crimson-s-light-i'>Log in to Draw</h3></button></Link>
+          }
+        </div>
+        <AnimateText />
+      </>
+    )
+  }
 }
 
-export default Home
+export default withRouter(Home)

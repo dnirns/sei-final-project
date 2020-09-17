@@ -6,7 +6,7 @@ export const loginSuccess = (message) => {
   toast.success(message, {
     position: 'top-center',
     autoClose: 5000,
-    hideProgressBar: true,
+    hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
@@ -18,7 +18,7 @@ export const registrationSuccess = (message) => {
   toast.success(message, {
     position: 'top-center',
     autoClose: 5000,
-    hideProgressBar: true,
+    hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
@@ -30,7 +30,7 @@ export const loginError = (message) => {
   toast.error(message, {
     position: 'top-center',
     autoClose: 5000,
-    hideProgressBar: false,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,

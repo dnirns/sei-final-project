@@ -1,9 +1,7 @@
 import React from 'react'
-import { Segment, Image, Container } from 'semantic-ui-react'
+import { Segment, Image, Container, Divider, Button } from 'semantic-ui-react'
 
-
-
-class testRequest extends React.Component {
+class CorpseExample extends React.Component {
 
   state = {
     data: [],
@@ -12,7 +10,8 @@ class testRequest extends React.Component {
     feet: {},
     headUser: '',
     bodyUser: '',
-    feetUser: ''
+    feetUser: '',
+    name: ''
   }
 
   async componentDidMount() {
@@ -22,6 +21,7 @@ class testRequest extends React.Component {
     this.getHead()
     this.getBody()
     this.getLegs()
+    this.getName()
   }
 
   getHead = () => {
@@ -34,10 +34,10 @@ class testRequest extends React.Component {
       }
     })
     const randomHead = Math.floor(Math.random() * headsArray.length)
-
     this.setState({ head: headsArray[randomHead] })
     this.setState({ headUser: this.state.head.owner.username })
   }
+
   getBody = () => {
     const bodyArray = []
     this.state.data.map((body) => {
@@ -51,6 +51,7 @@ class testRequest extends React.Component {
     this.setState({ body: bodyArray[randomBody] })
     this.setState({ bodyUser: this.state.body.owner.username })
   }
+
   getLegs = () => {
     const feetArray = []
     this.state.data.map((foot) => {
@@ -65,31 +66,42 @@ class testRequest extends React.Component {
     this.setState({ feetUser: this.state.feet.owner.username })
   }
 
+  getName = () => {
+    const firstName = this.state.head.title
+    const middleName = this.state.body.title
+    const lastName = this.state.feet.title
+    const name = `${firstName} ${middleName} ${lastName}`
+    this.setState({ name: name })
+  }
 
   render() {
+    const { head, body, feet, headUser, bodyUser, feetUser } = this.state
     return (
       <>
         <Container textAlign='center'>
-          <Segment basic>
-            <h2>Your Exquisite Corpse</h2>
-          </Segment>
+          <h3 className='crimson-s'>An Exquisite Corpse,</h3>
+          <h3 className='crimson-s-light'>{this.state.name}</h3>
+          <Divider hidden/>
           <div>
-            <Image src={this.state.head.url} size='medium' centered/>
+            <Image className='corpse-img' src={head.url} centered/>
           </div>
           <div>
-            <Image src={this.state.body.url} size='medium' centered/>
+            <Image className='corpse-img' src={body.url } centered/>
           </div>
           <div>
-            <Image src={this.state.feet.url} size='medium' centered/>
+            <Image className='corpse-img' src={feet.url } centered/>
           </div>
         </Container>
         <Segment basic textAlign='center'>
-          <p>Head by {this.state.headUser}, body by {this.state.bodyUser}, and feet by {this.state.feetUser}</p>
+          <h4 className='crimson-s-light-i'>Head by {headUser},
+            body by {bodyUser },
+            and feet by {feetUser }
+          </h4>
         </Segment>
+
       </>
     )
   }
-
 }
 
-export default testRequest
+export default CorpseExample

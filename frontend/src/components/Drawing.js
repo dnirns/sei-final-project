@@ -4,6 +4,7 @@ import { Container, Divider } from 'semantic-ui-react'
 import { saveDrawing } from '../lib/api'
 import { ToastContainer } from 'react-toastify'
 import { drawingNotAuthorized } from '../lib/notifications'
+import { isAuthenticated } from '../lib/auth'
 import Modal from 'react-modal'
 import ColorPicker from './drawing-components/ColorPicker'
 import Slider from 'react-input-slider'
@@ -182,73 +183,85 @@ class Drawing extends React.Component {
 
       return (
         <Container textAlign='center'>
-          <h3>Draw a head, body or legs</h3>
-          <Divider hidden />
-          <div className="drawing-wrapper">
-            <ColorSwatches handleColorSwatches={this.handleColorSwatches}/>
-            <div onContextMenu={e => e.preventDefault()}>
-              <Stage width={700} height={700}>
-                <Layer>
-                  <Image
-                    image={ canvas }
-                    ref={node => (this.image = node)}
-                    width={700}
-                    height={700}
-                    onMouseEnter={e => {
-                      const container = e.target.getStage().container()
-                      container.style.cursor = cursor
-                    }}
-                    onMouseDown={this.handleMouseDown}
-                    onMouseUp={this.handleMouseUp}
-                    onMouseMove={this.handleMouseMove}
+          {
+            !isAuthenticated() &&
+            <div>
+              <h4>Please Log In</h4>
+            </div>
+          }
+          {
+            isAuthenticated() &&
+            <>
+              <h3 className='crimson'>Draw a head, body or legs</h3>
+              <Divider hidden />
+              <div className="drawing-wrapper">
+                <ColorSwatches handleColorSwatches={this.handleColorSwatches}/>
+                <div onContextMenu={e => e.preventDefault()}>
+                  <Stage width={700} height={700}>
+                    <Layer>
+                      <Image
+                        image={ canvas }
+                        ref={node => (this.image = node)}
+                        width={700}
+                        height={700}
+                        onMouseEnter={e => {
+                          const container = e.target.getStage().container()
+                          container.style.cursor = cursor
+                        }}
+                        onMouseDown={this.handleMouseDown}
+                        onMouseUp={this.handleMouseUp}
+                        onMouseMove={this.handleMouseMove}
+                      />
+                    </Layer>
+                  </Stage>
+                </div>
+                <div className='controls-right'>
+                  <div className={'slider'}>
+                    <Slider
+                      yreverse={true}
+                      axis="y"
+                      ystep={1}
+                      ymin={2}
+                      ymax={40}
+                      y={brushSlider}
+                      onChange={({ y }) => this.setState({ brushSlider: parseInt(y.toFixed(100)) })}
+                      styles={{
+                        active: {
+                          backgroundColor: color
+                        },
+                        thumb: {
+                          width: 15,
+                          height: 15,
+                          opacity: 0.8
+                        }
+                      }}
+                    />
+                  </div>
+                  <ColorPicker
+                    color={color}
+                    handleColorClick={this.handleColorClick}
+                    displayColorPicker={displayColorPicker}
+                    handleColorClose={this.handleColorClose}
+                    handleColorChange={this.handleColorChange}
                   />
-                </Layer>
-              </Stage>
-            </div>
-            <div className='controls-right'>
-              <div className={'slider'}>
-                <Slider
-                  yreverse={true}
-                  axis="y"
-                  ystep={1}
-                  ymin={2}
-                  ymax={40}
-                  y={brushSlider}
-                  onChange={({ y }) => this.setState({ brushSlider: parseInt(y.toFixed(100)) })}
-                  styles={{
-                    active: {
-                      backgroundColor: color
-                    },
-                    thumb: {
-                      width: 15,
-                      height: 15,
-                      opacity: 0.8
-                    }
-                  }}
-                />
+                  <button value='eraser' onClick={this.handleButtonSelection} className='eraser draw-button'></button>
+                  <button value='paintBrush' onClick={this.handleButtonSelection} className='paint draw-button'></button>
+                </div>
               </div>
-              <ColorPicker
-                color={color}
-                handleColorClick={this.handleColorClick}
-                displayColorPicker={displayColorPicker}
-                handleColorClose={this.handleColorClose}
-                handleColorChange={this.handleColorChange}
+              <Divider hidden/>
+              <SaveModal
+                data={data}
+                modalIsOpen={modalIsOpen}
+                handleCatChange={this.handleCatChange}
+                openModal={this.openModal}
+                closeModal={this.closeModal}
+                handleTitleChange={this.handleTitleChange}
+                handleSaveImg={this.handleSaveImg}
               />
-              <button value='eraser' onClick={this.handleButtonSelection} className='eraser draw-button'></button>
-              <button value='paintBrush' onClick={this.handleButtonSelection} className='paint draw-button'></button>
-            </div>
-          </div>
-          <Divider hidden/>
-          <SaveModal
-            data={data}
-            modalIsOpen={modalIsOpen}
-            handleCatChange={this.handleCatChange}
-            openModal={this.openModal}
-            closeModal={this.closeModal}
-            handleTitleChange={this.handleTitleChange}
-            handleSaveImg={this.handleSaveImg}
-          />
-          <ToastContainer style={{ textAlign: 'center' }}/>
+              <ToastContainer style={{ textAlign: 'center' }}/>
+            </>
+          }
+
         </Container>
       )
     }

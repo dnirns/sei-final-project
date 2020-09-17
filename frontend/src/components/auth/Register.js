@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { register } from '../../lib/api'
 import { } from '../../lib/auth'
-import { Container, Button, Form } from 'semantic-ui-react'
+import { Segment, Button, Form } from 'semantic-ui-react'
 import { registrationSuccess, registrationError } from '../../lib/notifications'
 import { ToastContainer } from 'react-toastify'
 
@@ -42,9 +42,9 @@ class Register extends React.Component {
   render() {
     const { data, errors } = this.state
     return (
-      <Container>
+      <Segment textAlign='center'>
         <Form>
-          <h1>Register</h1>
+          <h1 className='crimson'>Register</h1>
           <Form.Field>
             <label>Username:</label>
             <Form.Input
@@ -91,14 +91,14 @@ class Register extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Field>
-          <Button type='submit' onClick={this.handleSubmit}>Submit</Button>
+          <Button type='submit' onClick={this.handleSubmit}><p className='crimson-s'>Submit</p></Button>
           <p>Already registered?
             <Link to='/login'> Login.</Link>
           </p>
         </Form>
 
         <ToastContainer style={{ textAlign: 'center' }}/>
-      </Container>
+      </Segment>
     )
   }
 

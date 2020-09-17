@@ -23,13 +23,16 @@ class Nav extends React.Component {
               </Menu.Item>
             </Link>
             {
-              isAuthenticated() && <Link to='/drawing'><Menu.Item as='a'>Draw</Menu.Item></Link>
+              !isAuthenticated() && <Link to='/corpse-example'><Menu.Item as='a'>Meet a Corpse</Menu.Item></Link>
             }
             {
-              isAuthenticated() && <Link to='/gallery'><Menu.Item as='a'>Gallery of Parts</Menu.Item></Link>
+              isAuthenticated() && <Link to='/drawing'><Menu.Item as='a'>Draw!</Menu.Item></Link>
             }
             {
-              isAuthenticated() && <Link to='/corpse'><Menu.Item as='a'>The Exquisite Corpse</Menu.Item></Link>
+              isAuthenticated() && <Link to='/gallery'><Menu.Item as='a'>Gallery</Menu.Item></Link>
+            }
+            {
+              isAuthenticated() && <Link to='/corpse'><Menu.Item as='a'>Your Exquisite Corpse</Menu.Item></Link>
             }
             <Menu.Menu position='right'>
               <Dropdown item simple text='My Account'>
