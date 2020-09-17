@@ -1,5 +1,5 @@
 import React from 'react'
-import { Segment, Image, Container, Divider, Button } from 'semantic-ui-react'
+import { Segment, Image, Container, Divider } from 'semantic-ui-react'
 
 class CorpseExample extends React.Component {
 

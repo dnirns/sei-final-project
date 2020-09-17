@@ -9,7 +9,6 @@ export const getToken = () => {
 
 export const logout = () => {
   window.localStorage.removeItem('token')
-  console.log('logged out')
 }
 
 

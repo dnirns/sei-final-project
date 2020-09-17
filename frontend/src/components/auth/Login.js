@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { login } from '../../lib/api'
 import { setToken } from '../../lib/auth'
 import { Button, Form, Segment } from 'semantic-ui-react'
-import { loginSuccess, loginError } from '../../lib/notifications'
+import { loginSuccess, loginError } from '../functions/Notifications'
 import { ToastContainer } from 'react-toastify'
 
 class Login extends React.Component {

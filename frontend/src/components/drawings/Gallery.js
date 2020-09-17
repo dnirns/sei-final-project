@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Image, Container, Divider } from 'semantic-ui-react'
-import { isAuthenticated } from '../lib/auth'
+import { isAuthenticated } from '../../lib/auth'
 
 class testRequest extends React.Component {
   state = {

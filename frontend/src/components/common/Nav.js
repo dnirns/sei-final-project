@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { Menu, Dropdown, Segment } from 'semantic-ui-react'
-import { logout, isAuthenticated } from '../lib/auth'
-import { logoutSuccess } from '../lib/notifications'
+import { logout, isAuthenticated } from '../../lib/auth'
+import { logoutSuccess } from '../functions/Notifications'
 import { ToastContainer } from 'react-toastify'
 
 class Nav extends React.Component {

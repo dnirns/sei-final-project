@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { isAuthenticated } from '../lib/auth'
-import AnimateText from '../styles/AnimateText'
+import { isAuthenticated } from '../../lib/auth'
+import AnimateText from '../../styles/AnimateText'
 
 class Home extends React.Component {
 

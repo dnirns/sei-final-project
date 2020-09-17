@@ -1,15 +1,16 @@
 import React from 'react'
 import { Image, Stage, Layer } from 'react-konva'
 import { Container, Divider } from 'semantic-ui-react'
-import { saveDrawing } from '../lib/api'
+import { saveDrawing } from '../../lib/api'
 import { ToastContainer } from 'react-toastify'
-import { drawingNotAuthorized } from '../lib/notifications'
-import { isAuthenticated } from '../lib/auth'
+import { drawingNotAuthorized } from '../functions/Notifications'
+import { isAuthenticated } from '../../lib/auth'
 import Modal from 'react-modal'
-import ColorPicker from './drawing-components/ColorPicker'
+import ColorPicker from '../drawing-components/ColorPicker'
 import Slider from 'react-input-slider'
-import SaveModal from './drawing-components/Modal'
-import ColorSwatches from './drawing-components/ColorSwatches'
+import SaveModal from '../drawing-components/Modal'
+import ColorSwatches from '../drawing-components/ColorSwatches'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 
 Modal.setAppElement('#root')
@@ -20,14 +21,13 @@ class Drawing extends React.Component {
     drawingURL: null,
     isDrawing: false,
     eraser: false,
-    size: 5,
     globalCompositeOperation: 'source-over',
     paintCursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=125360), auto',
     eraserCursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=72976), auto',
     cursor: '',
     displayColorPicker: false,
     color: '#000000',
-    brushSlider: 4,
+    brushSlider: 6,
     data: {
       title: '',
       url: '',
@@ -45,7 +45,7 @@ class Drawing extends React.Component {
   }
 
 
-  //? MOUSE EVENT HANDERS
+  // MOUSE EVENT HANDERS
   handleMouseDown = () => {
     this.setState({ isDrawing: true })
     const stage = this.image.getStage()
@@ -89,15 +89,9 @@ class Drawing extends React.Component {
     }
   }
 
-    changeSize = (e) => {
-      this.setState({ size: e.target.value })
-    }
-
     handleButtonSelection = (e) => {
       const paint = 'source-over'
       const erase = 'destination-out'
-
-      console.log(e.target.value)
       if (e.target.value === 'eraser') {
         return this.setState({
           globalCompositeOperation: erase,
@@ -135,6 +129,24 @@ class Drawing extends React.Component {
       })
     }
 
+    // space bar wild card color and left/right for brushsize changes
+    handleKeys = (e) => {
+      const r = Math.floor(Math.random() * 255)
+      const g = Math.floor(Math.random() * 255)
+      const b = Math.floor(Math.random() * 255)
+      if (e === 'space') {
+        return this.setState({ color: `rgb(${r},${g},${b})` })
+      }
+      if (e === 'left' && this.state.brushSlider > 1) {
+        const brushSliderDown = this.state.brushSlider - 5
+        return this.setState({ brushSlider: brushSliderDown })
+      }
+      if (e === 'right' && this.state.brushSlider < 40) {
+        const brushSliderUp = this.state.brushSlider + 5
+        return this.setState({ brushSlider: brushSliderUp })
+      }
+    }
+
     handleTitleChange = e => {
       const data = { ...this.state.data, title: e.target.value }
       this.setState({ data })
@@ -143,7 +155,6 @@ class Drawing extends React.Component {
     handleCatChange = e => {
       const data = ({ ...this.state.data, category: e.target.value })
       this.setState({ data })
-      console.log(this.state.data.category)
     }
 
     handleSaveImg = async () => {
@@ -259,6 +270,9 @@ class Drawing extends React.Component {
                 handleSaveImg={this.handleSaveImg}
               />
               <ToastContainer style={{ textAlign: 'center' }}/>
+              <KeyboardEventHandler
+                handleKeys={['space', 'right', 'left']}
+                onKeyEvent={(e) => this.handleKeys(e)} />
             </>
           }
 
