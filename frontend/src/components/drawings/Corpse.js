@@ -1,5 +1,6 @@
 import React from 'react'
 import { Segment, Image, Container, Divider } from 'semantic-ui-react'
+import PuffLoader from 'react-spinners/PuffLoader'
 import { getUser } from '../../lib/api'
 import { isAuthenticated } from '../../lib/auth'
 
@@ -15,7 +16,8 @@ class Corpse extends React.Component {
     headUser: '',
     bodyUser: '',
     feetUser: '',
-    name: ''
+    name: '',
+    loading: true
   }
 
   async componentDidMount() {
@@ -23,7 +25,7 @@ class Corpse extends React.Component {
     const userRes = await getUser()
     const data = await res.json()
     this.setState({ data: data })
-    this.setState({ currentUserData: userRes.data })
+    this.setState({ currentUserData: userRes.data, loading: false })
     this.getHead()
     this.getBody()
     this.getLegs()
@@ -117,44 +119,56 @@ class Corpse extends React.Component {
       latestUserDrawing,
       headUser,
       bodyUser,
-      feetUser
+      feetUser,
+      loading
     } = this.state
 
-    return (
-      <>
-        <Container textAlign='center'>
-          {
-            !isAuthenticated() &&
-              <div>
-                <h4>Please Log In</h4>
-              </div>
-          }
-          {
-            isAuthenticated() &&
-            <>
-              <h3 className='crimson-s'>Welcome your Exquisite Corpse...</h3>
-              <h3 className='crimson-s-light'>{this.state.name}</h3>
-              <Divider hidden/>
-              <div>
-                <Image className='corpse-img' src={latestUserDrawing.category === 'Head' ? latestUserDrawing.url : head.url } centered/>
-              </div>
-              <div>
-                <Image className='corpse-img' src={latestUserDrawing.category === 'Body' ? latestUserDrawing.url : body.url } centered/>
-              </div>
-              <div>
-                <Image className='corpse-img' src={latestUserDrawing.category === 'Feet' ? latestUserDrawing.url : feet.url } centered/>
-              </div>
-              <Segment basic textAlign='center'>
-                <h4 className='crimson-s-light-i'>Head by {latestUserDrawing.category === 'Head' ? currentUserData.username :  headUser },
-                body by {latestUserDrawing.category === 'Body' ? currentUserData.username :  bodyUser },
-                and feet by {latestUserDrawing.category === 'Feet' ? currentUserData.username :  feetUser }
-                </h4>
-              </Segment>
-            </>
-          }
-        </Container>
-      </>
-    )
+    if (loading === true) {
+      return (
+        <div className='homepage'>
+          <p>Loading...</p>
+          <PuffLoader/>
+        </div>
+      )
+    } else {
+      return (
+
+        <>
+          <Container textAlign='center'>
+            {
+              !isAuthenticated() &&
+                <div>
+                  <h4>Please Log In</h4>
+                </div>
+            }
+            {
+              isAuthenticated() &&
+              <>
+                <h3 className='crimson-s'>Welcome your Exquisite Corpse...</h3>
+                <h3 className='crimson-s-light'>{this.state.name}</h3>
+                <Divider hidden/>
+                <div>
+                  <Image className='corpse-img' src={latestUserDrawing.category === 'Head' ? latestUserDrawing.url : head.url } centered/>
+                </div>
+                <div>
+                  <Image className='corpse-img' src={latestUserDrawing.category === 'Body' ? latestUserDrawing.url : body.url } centered/>
+                </div>
+                <div>
+                  <Image className='corpse-img' src={latestUserDrawing.category === 'Feet' ? latestUserDrawing.url : feet.url } centered/>
+                </div>
+                <Segment basic textAlign='center'>
+                  <h4 className='crimson-s-light-i'>Head by {latestUserDrawing.category === 'Head' ? currentUserData.username :  headUser },
+                  body by {latestUserDrawing.category === 'Body' ? currentUserData.username :  bodyUser },
+                  and feet by {latestUserDrawing.category === 'Feet' ? currentUserData.username :  feetUser }
+                  </h4>
+                </Segment>
+              </>
+            }
+          </Container>
+        </>
+      )
+    }
+
   }
 }
 

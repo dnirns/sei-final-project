@@ -78,10 +78,10 @@ class CorpseExample extends React.Component {
 
   render() {
     const { head, body, feet, headUser, bodyUser, feetUser, loading } = this.state
-    console.log(this.state.loading)
     if (loading === true) {
       return (
         <div className='homepage'>
+          <p>Loading...</p>
           <PuffLoader/>
         </div>
       )
