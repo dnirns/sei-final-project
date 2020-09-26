@@ -28,7 +28,7 @@ class Login extends React.Component {
       const res = await login(this.state.data)
       setToken(res.data.token)
       loginSuccess(res.data.message)
-      this.props.history.push('/drawing')
+      this.props.history.push('/drawing/')
     } catch (err) {
       this.setState({ errors: err.response.data })
       loginError(`${this.state.errors.message}, try again.`)

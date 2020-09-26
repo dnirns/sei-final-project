@@ -8,7 +8,7 @@ class testRequest extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await fetch('/api/drawings')
+    const res = await fetch('/api/drawings/')
     const data = await res.json()
     this.setState({ data: data })
   }

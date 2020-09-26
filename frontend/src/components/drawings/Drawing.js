@@ -22,8 +22,8 @@ class Drawing extends React.Component {
     isDrawing: false,
     eraser: false,
     globalCompositeOperation: 'source-over',
-    paintCursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=125360), auto',
-    eraserCursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=72976), auto',
+    paintCursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=125360/), auto',
+    eraserCursor: 'url(http://www.rw-designer.com/cursor-extern.php?id=72976/), auto',
     cursor: '',
     displayColorPicker: false,
     color: '#000000',
@@ -168,7 +168,7 @@ class Drawing extends React.Component {
           url: dataURL,
           category: this.state.data.category,
           title: this.state.data.title })
-        this.props.history.push('/corpse')
+        this.props.history.push('/corpse/')
       } catch (err) {
         drawingNotAuthorized('Choose part and name to save...')
       }

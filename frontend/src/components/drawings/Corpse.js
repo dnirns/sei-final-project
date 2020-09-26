@@ -19,7 +19,7 @@ class Corpse extends React.Component {
   }
 
   async componentDidMount() {
-    const res = await fetch('/api/drawings')
+    const res = await fetch('/api/drawings/')
     const userRes = await getUser()
     const data = await res.json()
     this.setState({ data: data })
