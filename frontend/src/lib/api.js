@@ -26,6 +26,6 @@ export const saveDrawing = data => {
 
 //get user
 export const getUser = () => {
-  return axios.get('/api/auth/user', withHeaders())
+  return axios.get('/api/auth/user/', withHeaders())
 }
 

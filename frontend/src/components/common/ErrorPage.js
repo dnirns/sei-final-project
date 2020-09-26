@@ -1,10 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { Container, Button } from 'semantic-ui-react'
 
 
 const ErrorPage = () => {
 
   return (
-    <h1>error</h1>
+    <Container text textAlign='center'>
+      <h1>Oops, nothing to see here....</h1>
+      <Link to='/'><Button>Go Home...</Button></Link>
+    </Container>
+
   )
 }
 

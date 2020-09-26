@@ -132,7 +132,7 @@ class Corpse extends React.Component {
           {
             isAuthenticated() &&
             <>
-              <h3 className='crimson-s'>Welcome your Exquisite Corpse,</h3>
+              <h3 className='crimson-s'>Welcome your Exquisite Corpse...</h3>
               <h3 className='crimson-s-light'>{this.state.name}</h3>
               <Divider hidden/>
               <div>

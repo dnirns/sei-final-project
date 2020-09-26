@@ -16,9 +16,9 @@ class Home extends React.Component {
           </div>
           {
             isAuthenticated() ?
-              <Link to='/drawing'><button className='home-button'><h3 className='crimson-s-light-i'>Make your Exquisite Corpse</h3></button></Link>
+              <Link to='/drawing'><button className='home-button'><h3 className='crimson-s-light'>Make your Exquisite Corpse</h3></button></Link>
               :
-              <Link to='/login'><button className='home-button'><h3 className='crimson-s-light-i'>Log in to Draw</h3></button></Link>
+              <Link to='/login'><button className='home-button'><h3 className='home-button'>Log in to Draw</h3></button></Link>
           }
         </div>
         <AnimateText />
