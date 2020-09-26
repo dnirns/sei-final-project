@@ -58,10 +58,10 @@
 
 .color-option:hover {
   cursor: pointer;
-  opacity: 80%;
+  opacity: .8;
 }
 .color-option:active {
-  opacity: 90%;
+  opacity: .9;
 }
 .color-option.black {
   background-color: #000000;
@@ -104,7 +104,7 @@
 
 .draw-button {
   background-color: white;
-  opacity: 80%;
+  // opacity: 1
   border: none;
   outline: none;
   margin-left: 10px;
@@ -123,11 +123,11 @@
 
 }
 .draw-button:hover {
-  opacity: 60%;
+  opacity: .6;
 }
 
 .draw-button:active {
-  opacity: 80%;
+  opacity: .9;
 }
 
 // modal
@@ -147,10 +147,10 @@
   border-radius: 10px;
 }
 .home-button:hover {
-  opacity: 70%;
+  opacity: .7;
 }
 .home-button:active {
-  opacity: 90%;
+  opacity: .9;
 }
 // homepage main div
 .homepage {
