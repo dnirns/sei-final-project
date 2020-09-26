@@ -39,7 +39,7 @@ class testRequest extends React.Component {
               <h3 className='crimson'>The Previous Corpses</h3>
               <Divider hidden />
               <Divider hidden />
-              <Grid container relaxed columns={4}>
+              <Grid doubling stackable columns={3}>
                 {this.state.data.map((drawing) => {
                   return <Grid.Column key={drawing.id} className="gallery-item" src={drawing.url}>
                     <Image src={drawing.url}/>
