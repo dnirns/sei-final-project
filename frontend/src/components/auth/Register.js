@@ -30,7 +30,7 @@ class Register extends React.Component {
 
     try {
       const res = await register(this.state.data)
-      this.props.history.push('/login')
+      this.props.history.push('/login/')
       registrationSuccess(res.data.message)
     } catch (err) {
       registrationError('Incorrect details, please try again')
