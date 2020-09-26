@@ -1,5 +1,6 @@
 import React from 'react'
 import { Segment, Image, Container, Divider } from 'semantic-ui-react'
+import PuffLoader from 'react-spinners/PuffLoader'
 
 class CorpseExample extends React.Component {
 
@@ -11,13 +12,14 @@ class CorpseExample extends React.Component {
     headUser: '',
     bodyUser: '',
     feetUser: '',
-    name: ''
+    name: '',
+    loading: true
   }
 
   async componentDidMount() {
     const res = await fetch('/api/drawings/')
     const data = await res.json()
-    this.setState({ data: data })
+    this.setState({ data: data, loading: false })
     this.getHead()
     this.getBody()
     this.getLegs()
@@ -75,33 +77,42 @@ class CorpseExample extends React.Component {
   }
 
   render() {
-    const { head, body, feet, headUser, bodyUser, feetUser } = this.state
-    return (
-      <>
-        <Container textAlign='center'>
-          <h3 className='crimson-s'>An Exquisite Corpse,</h3>
-          <h3 className='crimson-s-light'>{this.state.name}</h3>
-          <Divider hidden/>
-          <div>
-            <Image className='corpse-img' src={head.url} centered/>
-          </div>
-          <div>
-            <Image className='corpse-img' src={body.url } centered/>
-          </div>
-          <div>
-            <Image className='corpse-img' src={feet.url } centered/>
-          </div>
-        </Container>
-        <Segment basic textAlign='center'>
-          <h4 className='crimson-s-light-i'>Head by {headUser},
-            body by {bodyUser },
-            and feet by {feetUser }
-          </h4>
-        </Segment>
-
-      </>
-    )
+    const { head, body, feet, headUser, bodyUser, feetUser, loading } = this.state
+    console.log(this.state.loading)
+    if (loading === true) {
+      return (
+        <div className='homepage'>
+          <PuffLoader/>
+        </div>
+      )
+    } else {
+      return (
+        <>
+          <Container textAlign='center'>
+            <h3 className='crimson-s'>An Exquisite Corpse,</h3>
+            <h3 className='crimson-s-light'>{this.state.name}</h3>
+            <Divider hidden/>
+            <div>
+              <Image className='corpse-img' src={head.url} centered/>
+            </div>
+            <div>
+              <Image className='corpse-img' src={body.url } centered/>
+            </div>
+            <div>
+              <Image className='corpse-img' src={feet.url } centered/>
+            </div>
+          </Container>
+          <Segment basic textAlign='center'>
+            <h4 className='crimson-s-light-i'>Head by {headUser},
+              body by {bodyUser },
+              and feet by {feetUser }
+            </h4>
+          </Segment>
+        </>
+      )
+    }
   }
 }
+
 
 export default CorpseExample

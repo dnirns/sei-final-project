@@ -1,10 +1,12 @@
 import React from 'react'
 import { Grid, Image, Container, Divider } from 'semantic-ui-react'
+
 import { isAuthenticated } from '../../lib/auth'
 
 class testRequest extends React.Component {
   state = {
     data: []
+
   }
 
   async componentDidMount() {
@@ -16,6 +18,7 @@ class testRequest extends React.Component {
   render() {
     return (
       <Container textAlign='center'>
+
         {
           !isAuthenticated() &&
           <div>
