@@ -10,6 +10,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
 
+
 .corpse-img {
   width: 220px;
   height: 220px;
@@ -104,7 +105,6 @@
 
 .draw-button {
   background-color: white;
-  // opacity: 1
   border: none;
   outline: none;
   margin-left: 10px;
@@ -130,7 +130,6 @@
   opacity: .9;
 }
 
-// modal
 .modal-form {
   margin: 20px;
 }
@@ -152,6 +151,7 @@
 .home-button:active {
   opacity: .9;
 }
+
 // homepage main div
 .homepage {
   padding: 0px;
@@ -201,7 +201,6 @@
 }
 
 // animations for home page
-
 .home-animated-1 {
   font-family: 'Rock Salt', cursive;
   font-size: 3rem;

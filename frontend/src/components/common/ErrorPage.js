@@ -8,7 +8,7 @@ const ErrorPage = () => {
   return (
     <Container text textAlign='center'>
       <h1>Oops, nothing to see here....</h1>
-      <Link to='/'><Button>Go Home...</Button></Link>
+      <Link to='/'><Button>Go Home?</Button></Link>
     </Container>
 
   )

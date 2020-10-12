@@ -84,8 +84,8 @@ class Drawing extends React.Component {
       context.lineTo(localPos.x, localPos.y)
       context.closePath()
       context.stroke()
-      this.lastPointerPosition = pos //? RESET POINTER POSITION
-      this.image.getLayer().batchDraw() //? ADD LAYER AND DRAW
+      this.lastPointerPosition = pos // RESET POINTER POSITION
+      this.image.getLayer().batchDraw() // ADD LAYER AND DRAW
     }
   }
 
@@ -129,7 +129,8 @@ class Drawing extends React.Component {
       })
     }
 
-    // space bar wild card color and left/right for brushsize changes
+
+    // suprise keyboard controls - space for random color and left/right for brushsize changes
     handleKeys = (e) => {
       const r = Math.floor(Math.random() * 255)
       const g = Math.floor(Math.random() * 255)
