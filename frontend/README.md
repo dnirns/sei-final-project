@@ -1,9 +1,23 @@
-# ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png) GA London React Template
-
-`yarn start` to run the development server
-
-`yarn build` to create a build directory
+# General Assembly SEI Final Project ‘An Exquisite Corpse’
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Technical Brief:
 
+
+## Technologies:
+
+
+## Overview:
+
+
+## Challenges:
+
+
+## Resources:
+
+* [Konva.js](https://konvajs.org/)
+* [Exquisite Corpse (Wikipedia)](https://en.wikipedia.org/wiki/Exquisite_corpse)
+
+## Deployed Site:
+
+[An Exquisite Corpse](https://an-exquisite-corpse.herokuapp.com/)
