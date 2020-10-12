@@ -1,6 +1,23 @@
-# sei-final-project
-GA SEI Final Project - Full Stack React/Django App
+# General Assembly SEI Final Project ‘An Exquisite Corpse’
 
-Deployed:
 
-[An Exquisite Corpse](https://an-exquisite-corpse.herokuapp.com)
+## Technical Brief:
+
+
+## Technologies:
+
+
+## Overview:
+
+
+## Challenges:
+
+
+## Resources:
+
+* [Konva.js](https://konvajs.org/)
+* [Exquisite Corpse (Wikipedia)](https://en.wikipedia.org/wiki/Exquisite_corpse)
+
+## Deployed Site:
+
+[An Exquisite Corpse](https://an-exquisite-corpse.herokuapp.com/)
