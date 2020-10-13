@@ -1,4 +1,5 @@
-# General Assembly SEI Final Project, Solo - ‘An Exquisite Corpse’
+# General Assembly SEI Final Project ‘An Exquisite Corpse’
+#General-Assembly/read-me’s
 
 ## Technical Brief:
 
@@ -7,7 +8,6 @@
 * **Consume your API with a separate Frontend** built with React.
 * **Deploy your app online.** Make it publicly accessible.
 * **Time Frame**: 7 days.
-* **Choice to work solo or in a group**. (I chose to work solo for this one).
 
 ## Technologies:
 
@@ -16,8 +16,35 @@
 * Python
 * Django
 * Konva.js & HTML Canvas
-* CSS & Material UI
+* CSS & Semantic UI
 * Heroku (deployment)
+
+## Demo:
+
+Registration and login:
+
+
+
+![registration](./frontend/src/assets/readme-gifs/exquisite-corpse-demo-register.gif)
+
+![login](./frontend/src/assets/readme-gifs/exquisite-corpse-demo-login.gif)
+
+Home page and starting a drawing:
+
+![demo-1](./frontend/src/assets/readme-gifs/exquisite-corpse-demo-1.gif)
+
+![demo-2](./frontend/src/assets/readme-gifs/exquisite-corpse-demo-2.gif)
+
+
+Completing your drawing, saving to the back-end and being generated a completed image:
+
+![demo-3](./frontend/src/assets/readme-gifs/exquisite-corpse-demo-3.gif)
+
+Viewing the gallery of all the other users previous drawings:
+
+![demo-4](./frontend/src/assets/readme-gifs/exquisite-corpse-demo-4.gif)
+
+
 
 ## Overview:
 
@@ -32,7 +59,6 @@ The app requires a user to make an account before being able to submit a drawing
 After researching various ways to use HTML canvas techniques to build the drawing functionality, I ended up using [Konva.js](https://konvajs.org/) as it seemed to be more adaptable to using with React than some other options like [P5.js](https://p5js.org/).
 
 
-
 ## Challenges:
 Learning to use a completely new library like Konva and having never used HTML canvas at all prior to starting this project, it was a **lot** to take on board in a very short space of time, so the learning curve was quite steep when working out how to turn the idea into a functioning app.
 
@@ -40,10 +66,8 @@ It was really rewarding when those parts started coming together though and I be
 
 
 ## Resources:
-
 * [Konva.js](https://konvajs.org/)
 * [Exquisite Corpse (Wikipedia)](https://en.wikipedia.org/wiki/Exquisite_corpse)
 
 ## Deployed Site:
-
 [An Exquisite Corpse](https://an-exquisite-corpse.herokuapp.com/)
