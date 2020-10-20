@@ -47,19 +47,20 @@ After researching various ways to use HTML canvas techniques to build the drawin
 * Fleshing out the drawing app and working in more complexity, such as erasing lines, colour choices, brush size options and finer styling choices like the colour picker and modals for the save options.
 * Working on the logic to compose the final images and testing to ensure it was consistently working as intended.
 * Leaving time towards the end to work on styling the overall app and layout, including nav bar, conditional rendering, modal pop ups and animating home page text.
-* Deploying the finished app to Heroku.
+* Deploy the finished app to Heroku.
 
 ## Challenges:
 
 Learning to use a completely new library like Konva and having never used HTML canvas at all prior to starting this project, it was a ****lot**** to take on board in a very short space of time, so the learning curve was quite steep when working out how to turn the idea into a functioning app.
 
-Another more specific challenge was composing the final images from the data-base combined with the image the user had just drawn. To do this, I needed a way of knowing which the latest drawing the user had created and which category the body part was in. Then there was a series of conditions in which requests would be sent to the database for whichever categories would *not* match that which the user had just drawn. As the final image was essentially three images stacked on top of each other, these then had to be ensured they were arranged in the correct order. Then, finally - I needed to display the character name that had been given to each part, and the user who had drawn it. Once I had worked out the logic, it was just a matter of some conditional rendering to get everything in the right place.
+Another more specific challenge was composing the final images from the data-base combined with the image the user had just drawn. To do this, I needed a way of knowing which was the latest drawing the user had created, and which category the body part was in. Then there was a series of conditions in which requests would be sent to the database for whichever categories would *not* match that which the user had just drawn. As the final image was essentially three images stacked on top of each other, I needed to ensure they were arranged in the correct order. Then, finally - I needed to display the character name that had been given to each part, and the user who had drawn it. Once I had worked out the logic, it was just a matter of some conditional rendering to get everything in the right place.
+
 
 #### **Here’s an example of the finished code for this part:**
 
 ![code-example-1](./frontend/src/assets/readme/code-example-1.png)
 
-**Conditonally rendering things in the right order based on the results of the above logic:**
+**Conditionally rendering things in the right order based on the results of the above logic:**
 
 ![code-example-2](./frontend/src/assets/readme/code-example-2.png)
 
@@ -75,6 +76,9 @@ Then being able to still build a working back-end database to incorporate with i
 
 Learning a new skill with HTML canvas / Konva.js and using it to build a full-stack app solo with Python/Django for the first time.
 
+## Potential Future Features:
+
+I would love to have had time to try and make the app more mobile friendly, I think it would translate really well to mobile if I was able to make the canvas fully responsive for mobile screen sizes, and to add touch functionality to the drawing. However this turned out to be more complex than I had hoped to add in quickly once the rest of the app was complete, it would have require more re-factoring than I had time for towards the end of the project.
 
 ## Demo:
 
